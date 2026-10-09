@@ -10,8 +10,8 @@
 * REST に `event_id` 必須、`max_questions` はサーバー注入 (クライアント上書きなし)。「成功」= 例外なく完了 (`draft`/`ready` とも書く)。コネクタ欠如はボタン非表示を正とした。
 * 下書き REST 最小契約を追加 (1リクエストに `build`→コネクタ→`parse`)。メタ上書きは成功時のみと明記。改訂履歴に表示専用2発火への整理を追記した。
 * 上限反映はイベント編集の開き直し／再読込に含める (開いたままは自動更新しない)。下書きも PHP 経由。表示専用 `evaluate` の REST 最小契約を追加。保存成功後のパネル同期を必須とした。archive 三点は impl/mod のみと明記した。
-* 除外リストを persistence 正本へ寄せ、表示専用 `evaluate` は3発火+保存のみ (キー入力では走らせない)、搬送は PHP (REST 等) 経由と明記した。表記の軽いそろえをした。
-* 保存トリガーをイベント編集の明示更新に限定 (Quick Edit / 一括編集 / WP-CLI / REST のみは除外)。表記の最終そろえをした。
+* 除外リストを persistence 正本へ寄せ、表示専用 `evaluate` は当時3発火+保存のみ (後に開き直し+採用直後の2発火へ整理。キー入力では走らせない)、搬送は PHP (REST 等) 経由と明記した。表記の軽いそろえをした。
+* 保存トリガーをイベント編集の明示更新に限定 (Quick Edit / 一括編集 / WP-CLI / 独自 REST 等は除外。コア投稿 REST の扱いの正本は persistence)。表記の最終そろえをした。
 * autosave 除外、サーバー正規化でメタを上書きした。パネル文書／メタ文書の用語固定、不足表示の表記をそろえ、メニューとパネル見出しの同一文言を明記した。
 * 表示専用 `evaluate` はパネル入力、保存は投稿の通常保存、`choices` は非対象で非表示、`too_many` は助言のみ、option キー確定、「自由記述」の定義と表記をそろえた。
 * `docs/governance/documentation_governance.md` を追加し、`docs/archive/README.md` と `docs_mod/README.md` を整えた。
@@ -22,6 +22,11 @@
 * 「状態」はメタの status のみ、不足・助言はライブ検査と分離。i18n 用語 (msgid / 製品文案 / 翻訳) を固定。採用直後は表示専用 evaluate、と追記した。
 * 境界の「状態」用語を整理。表示専用トリガーを3種に統一。メタ未作成時の状態バッジは非表示または「未保存」、と追記した。
 * 不足・助言メッセージは直前の `evaluate` (保存時または表示専用) から出す、と明記。overview / concept は発火条件を詳細仕様へ委譲。
+* 除外列挙の区切りを読点にそろえ、保存成功後のパネル同期・メタ上書きの表記を整えた。アンインストール用語と archive 文末を直した。
+* S2J Webinar の添付契機を通常の「同期」での `attach_survey` に改め、「作成直後」表記をやめた。
+* 保存の除外／許可を persistence で切り分けた (コア投稿 REST + `save_post` は許可、独自カスタム REST によるメタ保存は除外)。
+* 表示専用 `evaluate` は開き直し + 採用直後の2発火と注記し、architecture / principles で FOP (Functional Object-Oriented Programming) を初出展開した。
+* overview / status / admin 等の委譲文言を「除外と許可は persistence」にそろえた。
 
 ## 0.0.1 - 2026-10-08
 

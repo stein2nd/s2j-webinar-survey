@@ -57,7 +57,7 @@
 | [概要](./overview.md) | 基本情報、責務、非対応 |
 | [コンセプト](./concept.md) | 背景、ユースケース、処理フロー |
 | [アーキテクチャー](./architecture.md) | レイヤ、フォルダー、依存 |
-| [設計原則](./principles.md) | FOP、境界、SoT |
+| [設計原則](./principles.md) | FOP (Functional Object-Oriented Programming)、境界、SoT |
 | [統合見取り図](./plugin_spec.md) | 要約。細部は分割仕様 |
 
 ### What (データと画面)

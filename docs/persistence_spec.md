@@ -33,24 +33,22 @@
 ### 保存のトリガー
 
 * 初版では、**GatherPress イベント編集画面からの明示の投稿「更新」** に限定する。パネル専用の「アンケートだけ保存」は持たない。
-* **含める:** ブロックエディタ／イベント編集からの投稿「更新」。
-* **含めない** (`evaluate` もメタ上書きもしない):
-  * autosave / リビジョン (`DOING_AUTOSAVE`、リビジョン保存を弾く)
-  * Quick Edit / 一括編集
-  * WP-CLI や REST だけでの投稿更新 (初版)
-* 理由: Webinar が読む `ready` を、パネル外の不完全更新で汚さない。REST / CLI を足す場合は、別イニシアチブで条件を広げる。
+* **含める:** ブロックエディター／イベント編集からの投稿「更新」。
+* **除外** (`evaluate` もメタ上書きもしない): autosave、リビジョン (`DOING_AUTOSAVE`、リビジョン保存を弾く)、Quick Edit、一括編集、WP-CLI、**本プラグイン独自のカスタム REST によるメタ保存** (初版)。
+* **許可:** エディター経由のコア投稿更新 REST (メタの `show_in_rest` 搬送) + `save_post` でのサーバー正規化。
+* 理由: Webinar が読む `ready` を、パネル外の不完全更新で汚さない。独自 REST / CLI 保存を足す場合は、別イニシアチブで条件を広げる。
 
 ### 保存パイプライン (役割分担)
 
 正規化の正はサーバーである。クライアントが送る生メタは搬送用であり、正本にしない。
 
-**パネル文書の載せ方 (初版):** 保護メタ `_s2j_webinar_survey` は `register_post_meta` で `type` = `object` (または object 相当)、`show_in_rest` = true、`auth_callback` は当該投稿の `edit_post` 相当とする。編集画面に載せ、保存時は `save_post` でサーバーが `evaluate` し、正規化結果で上書きする。クライアント生値は搬送用。正本はサーバー書き戻し後のメタ文書である。カスタム REST だけでパネル文書を別経路保存する案は初版に入れない。
+**パネル文書の載せ方 (初版):** 保護メタ `_s2j_webinar_survey` は `register_post_meta` で `type` = `object` (または object 相当)、`show_in_rest` = true、`auth_callback` は当該投稿の `edit_post` 相当とする。編集画面に載せ、保存時は `save_post` でサーバーが `evaluate` し、正規化結果で上書く。クライアント生値は搬送用。正本はサーバー書き戻し後のメタ文書である。カスタム REST だけでパネル文書を別経路保存する案は初版に入れない。
 
-REST で受け付ける形は、サービス文書と同型のパネル文書 (`status` なし可) である。クライアントが送った `status` は信頼せず、保存時の `evaluate` 戻りで上書きする。プロパティごとの JSON Schema (各設問フィールドの詳細) は実装でよい。意味・必須は Survey Service の `document_spec` / `data_contract_spec` を正本とする。
+REST で受け付ける形は、サービス文書と同型のパネル文書 (`status` なし可) である。クライアントが送った `status` は信頼せず、保存時の `evaluate` 戻りで上書く。プロパティごとの JSON Schema (各設問フィールドの詳細) は実装でよい。意味・必須は Survey Service の `document_spec` / `data_contract_spec` を正本とする。
 
 1. パネルは作業中の **パネル文書** を上記メタ (REST entity) に載せる (未正規化でよい)。
 2. 明示の投稿保存で `save_post` (相当) がパネル入力相当を受け取り `evaluate` する。
-3. 戻り (正規化文書 + `status`) でメタ文書を書く。**成功時は常に上書きする。失敗時はメタを書かない。** クライアント生値をそのまま正本にしない。
+3. 戻り (正規化文書 + `status`) でメタ文書を書く。**成功時は、常に上書く。失敗時はメタを書かない。** クライアント生値をそのまま正本にしない。
 4. **明示の投稿保存が成功したら、パネル文書をメタ文書 (正規化結果) に必ず合わせる。** 失敗した場合はメタ文書を書かず、適切な失敗メッセージを出す (パネル文書は編集中のまま)。
 
 **「成功」の意味:** `evaluate` が例外なく完了したこと。戻りが `draft` でも `ready` でもメタに書く (`status=draft` の保存は失敗ではない)。例外・権限失敗では書かない。
@@ -60,7 +58,7 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 1. パネル文書を入力配列にそろえる。
 2. サイト設定から `max_questions` を決める (未設定は6)。
 3. `evaluate( $document, $max_questions )`。
-4. 戻り (正規化 + `status`) をメタ文書として書く (**成功時は常に上書き。失敗時は書かない**。上記の「成功」定義に従う)。
+4. 戻り (正規化 + `status`) をメタ文書として書く (**成功時は、常に上書く。失敗時は書かない**。上記の「成功」定義に従う)。
 5. 不足・助言をパネル用の適切なメッセージ文にする (i18n 経由。永続化しない)。
 6. パネル文書をメタ文書に同期する (上記ステップ4成功時)。
 
@@ -96,7 +94,7 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 | --- | --- |
 | パス | `POST /wp-json/s2j-webinar-survey/v1/evaluate` |
 | 権限 | `current_user_can( 'edit_post', $event_id )` 相当 (対象イベントを編集できること) |
-| 入力 | **`event_id` (投稿 ID) 必須**、パネル文書。`max_questions` はサーバーがサイト option から読む (クライアント任意上書きは初版しない) |
+| 入力 | **`event_id` (投稿 ID) 必須**、パネル文書。`max_questions` はサーバーがサイト option から読む (初版では、クライアント任意上書かない) |
 | 出力 | **初版はコード列のみ:** `deficiencies`、`advice`。正規化プレビュー (`document` 等) は後続。**メタは書かない** |
 | 失敗 | 権限不足・不正入力は適切な HTTP ステータスとメッセージ。Service の `InvalidArgumentException` はログし、ユーザー向けは簡潔な失敗メッセージ |
 
@@ -114,7 +112,7 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 ## S2J Webinar との受け渡し
 
 * `ready` の文書は上記メタにある。
-* S2J Webinar は、ウェビナー作成直後にこれを読み、アンケートとして付ける。
+* S2J Webinar は、通常の「同期」でこれを読み `attach_survey` する (create の必須条件にしない。後から `ready` になっても同じ入口)。正本は相手の [survey_handoff_spec.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/survey_handoff_spec.md)。
 * `draft` は読まない。
 * S2J Webinar が無効でも、本プラグインの編集と保存はできる。
 * 添付 HTTP と Zoom 設問型への写像は S2J Webinar / webinar-service が持つ。

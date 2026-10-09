@@ -35,6 +35,8 @@ README と `docs/` の説明・命名が、実装とサービス契約からず�
 * メタ文書への `evaluate` 書き込みは、初版では GatherPress イベント編集からの明示の投稿更新に限定する。除外と表示専用の発火・搬送は [persistence_spec.md](../persistence_spec.md) を正本とする。
 * 「パネル文書」「メタ文書」「候補」の呼び分けは [persistence_spec.md](../persistence_spec.md) / [data_dictionary.md](../data_dictionary.md) に従う。
 * 「自由記述」は `short` / `long`、「選択式」は `single` / `multiple` の総称である (パネル名はデータ辞書)。
+* FOP は初出で Functional Object-Oriented Programming と展開する。
+* S2J Webinar の添付契機は相手の通常「同期」での `attach_survey` と書く。「作成直後」とは書かない (create の必須条件にしない)。
 
 ## 3. Lint
 

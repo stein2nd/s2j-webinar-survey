@@ -8,6 +8,11 @@
 
 設問の編集・保存・不足と助言のメッセージ表示・下書き UX を WordPress 側に閉じ、判定本体を Composer ライブラリに委ねます。GatherPress フォークは改変しません。
 
+## 設計方針
+
+* 本プラグインはアダプタ。FOP (Functional Object-Oriented Programming) の計算はサービス。
+* フック登録、設定、メタ、コネクタ呼び出しは本プラグイン。
+
 ## レイヤー構成
 
 | 層 | 責務 | 非責務 |

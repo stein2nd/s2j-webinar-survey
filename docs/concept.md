@@ -26,13 +26,13 @@ Zoom Webinar 実施後のアンケート回答率が低い、という状態を�
 | イベント編集で設問を保存する | 運営者 | 投稿保存でサービスに評価し、不足・助言を適切なメッセージ文で表示してメタ文書へ保存 |
 | 設問の下書きを頼む | 運営者 | 依頼文組立 → コネクタ1回 → 候補表示。採用までパネル文書／メタ文書に書かない |
 | サイトの上限を変える | 管理者 (`manage_options`) | オプション保存。パネルには上限入力を出さない |
-| Webinar 作成直後にアンケートを付ける | S2J Webinar | 関与しない (`ready` メタを読むのは相手側) |
+| `ready` メタを Zoom アンケートとして付ける | S2J Webinar | 関与しない (相手が通常の「同期」で `attach_survey`。create の必須条件にしない) |
 
 ## 処理フロー
 
 ### 投稿保存時 (イベント編集からの明示の更新)
 
-パネル専用の単独保存は持たない。除外の正本は [persistence_spec.md](./persistence_spec.md) (autosave・リビジョン・Quick Edit・一括編集・WP-CLI / REST。初版) です。
+パネル専用の単独保存は持たない。除外と許可の正本は [persistence_spec.md](./persistence_spec.md) です。
 
 ```mermaid
 flowchart TD
@@ -47,7 +47,7 @@ flowchart TD
 
 ### パネル表示時 (表示専用)
 
-入力は常にいまのパネル文書である。発火は開く／再読込 (その時点の上限)／採用直後のみ。サイト設定変更だけでは開いたままの画面は自動更新しない。搬送は PHP 経由。正本は [admin_ui_spec.md](./admin_ui_spec.md) / [persistence_spec.md](./persistence_spec.md) です。
+入力は常にいまのパネル文書である。発火は開く／再読込 (その時点の上限) ／採用直後のみ。サイト設定変更だけでは開いたままの画面は自動更新しない。搬送は PHP 経由。正本は [admin_ui_spec.md](./admin_ui_spec.md) / [persistence_spec.md](./persistence_spec.md) です。
 
 ```mermaid
 flowchart TD

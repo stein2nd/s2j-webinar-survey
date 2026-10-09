@@ -31,7 +31,7 @@
 ## 提供機能
 
 * イベント編集パネルでの設問編集と保存
-* イベント編集からの明示の投稿「更新」で `evaluate` し、成功時は常にメタ文書を上書き (失敗時は書かない)。成功後はパネル文書をメタ文書に同期。除外は [persistence_spec.md](./persistence_spec.md)。再表示は表示専用 (開く／再読込・採用直後。上限は開き直しで反映。搬送は PHP 経由)。正本は [admin_ui_spec.md](./admin_ui_spec.md) / [persistence_spec.md](./persistence_spec.md)
+* イベント編集からの明示の投稿「更新」で `evaluate` し、成功時は常にメタ文書を上書き (失敗時は書かない)。成功後はパネル文書をメタ文書に同期。除外と許可は [persistence_spec.md](./persistence_spec.md)。再表示は表示専用 (開く／再読込・採用直後。上限は開き直しで反映。搬送は PHP 経由)。正本は [admin_ui_spec.md](./admin_ui_spec.md) / [persistence_spec.md](./persistence_spec.md)
 * サイト設定による設問総数の上限 (1〜15、未設定時は6)
 * ボタン押下時のみ、コネクタ経由の下書き提案と人手による採用
 * `ready` のメタ文書をイベントに置き、S2J Webinar が読めるようにする
