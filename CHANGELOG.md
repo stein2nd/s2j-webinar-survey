@@ -6,6 +6,7 @@
 
 ### Changed
 
+* admin / concept / data_dictionary / plugin_spec の表記をそろえた (`メタ文書に`、Service に渡す、DraftKind の区切りなど。docs lint 向け)。
 * 表示専用 REST は `deficiencies` / `advice` のみとし、二層表示はメッセージとメタ `status` の対比にした。仮 `status` フィールドは持たない。
 * `max_questions` は Service 直前に必ず `int` 化する (未設定・範囲外は6)。読み出し規則を persistence に集約した。
 * 文書 `status` と下書き候補 (DraftKind) の用語を分離した。助言は Service 戻り多重度のまま表示する (重複除去しない)。
