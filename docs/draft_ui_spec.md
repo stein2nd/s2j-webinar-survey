@@ -2,11 +2,11 @@
 目的：「下書きボタン、コネクタ、採用フロー」の明文化
 -->
 
-# S2J Webinar Survey - 下書き UI 仕様
+# S2J Webinar Survey - 下書き候補 UI 仕様
 
 ## 設計意図 (ゴール)
 
-ボタン1回につきコネクタに1回だけ送り、人が採用するまで候補をパネル文書にもメタ文書にも書かないようにします。採用後はパネル文書に足し、メタ文書は次の明示の投稿保存まで触りません。
+ボタン1回につきコネクタに1回だけ送り、人が採用するまで **下書き候補** をパネル文書にもメタ文書にも書かないようにします。採用後はパネル文書に足し、メタ文書は次の明示の投稿保存まで触りません。文書の `status: draft` とは別です。kind は常に `survey` / `prompt` / `choices` (英単語) です。
 
 ## 前提
 
@@ -39,13 +39,13 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 
 渡してはいけないもの: 登壇者メール、申込者情報。`max_questions` はクライアントから送らない (送ってきても無視する)。
 
-`event_id` は REST 権限チェック用である。Service の `$context` には載せない。PHP は権限確認後に落とし、Service へは題名・パネル文書断片・`kind`・`focus_index`・答え方・`purpose` などと、サイト option から注入した `max_questions` (未設定は6。evaluate と同型) だけを渡す。
+`event_id` は REST 権限チェック用である。Service の `$context` には載せない。PHP は権限確認後に落とし、Service へは題名・パネル文書断片・`kind`・`focus_index`・答え方・`purpose` などと、サイト option から注入した `max_questions` (`int`。読み出し規則は [persistence_spec.md](./persistence_spec.md) と同じ) だけを渡す。
 
 1. `build_draft_prompt( $kind, $context )` → `{ prompt_text, requested_count }`
-2. `prompt_text` が空、または `requested_count` が0ならコネクタに送らず、候補なしで返す (`survey` の上限到達など)
+2. `prompt_text` が空、または `requested_count` が0ならコネクタに送らず、下書き候補なしで返す (`survey` の上限到達など)
 3. `wp_ai_client_prompt( … )` を1回
 4. `parse_draft_response( $kind, $response, $context )` に、同じ `requested_count` と必要なら `document` / `focus_index` を渡す
-5. 候補をレスポンスで UI に返す。パネル文書にもメタ文書にも書かない
+5. 下書き候補をレスポンスで UI に返す。パネル文書にもメタ文書にも書かない
 
 ### 下書き REST 最小契約
 
@@ -55,18 +55,18 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 | --- | --- |
 | パス | `POST /wp-json/s2j-webinar-survey/v1/draft` |
 | 権限 | `current_user_can( 'edit_post', $event_id )` 相当 (対象イベントを編集できること) |
-| 入力 | **`event_id` (投稿 ID) 必須**、`kind` (`survey` / `prompt` / `choices`)、上記のクライアント送付分。`max_questions` はサーバーがサイト option から読む (クライアント任意上書きは初版しない) |
-| 出力 | 候補の配列 (kind に応じた形)。送らなかった場合は空配列。**メタは書かない** |
+| 入力 | **`event_id` (投稿 ID) 必須**、`kind` (`survey` / `prompt` / `choices`)、上記のクライアント送付分。`max_questions` はサーバーがサイト option から読む (`int` 化。クライアント任意上書きは初版しない) |
+| 出力 | 下書き候補の配列 (kind に応じた形)。送らなかった場合は空配列。**メタは書かない** |
 | コネクタ欠如 | **初版の正はボタン非表示** (案内は上記)。呼ばれた場合は防衛的に適切な失敗メッセージ |
 | 失敗 | 権限不足、不正入力、Service 例外はログし、ユーザー向けは簡潔な失敗メッセージ。コネクタ失敗は再試行を促す。パネル文書は変えない |
 
-## 候補の見せ方と採用
+## 下書き候補の見せ方と採用
 
 ### kind `survey`
 
 * 欄の横に一覧で出す。
 * 「この設問を足す」で1件ずつパネル文書にコピーする。
-* 使わなかった候補は捨てる (メタ文書にも残さない)。
+* 使わなかった下書き候補は捨てる (メタ文書にも残さない)。
 * コピー後も運営者は文を直せる。
 
 ### kind `prompt` / `choices`
@@ -78,9 +78,9 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 
 ### 共通
 
-* 採用候補の `purpose` は空のまま。運営者が書く。
+* 採用した下書き候補の `purpose` は空のまま。運営者が書く。
 * 採用直後は、採用反映後のパネル文書で表示専用の `evaluate` を一度走らせ、不足・助言メッセージを更新する (メタ文書は書かない)。
-* メタ文書用の `evaluate` (正規化 + `status` の書き込み) は、次の明示の投稿保存で行う。候補のままではメタ文書上 `ready` にならない。
+* メタ文書用の `evaluate` (正規化 + `status` の書き込み) は、次の明示の投稿保存で行う。下書き候補のままではメタ文書上 `ready` にならない。
 
 ## エラー表示 (方針)
 

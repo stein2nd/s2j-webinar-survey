@@ -28,7 +28,7 @@
 4. **[architecture.md](./architecture.md)** — レイヤとフォルダー
 5. **[data_dictionary.md](./data_dictionary.md)** — メタ、option
 6. **[admin_ui_spec.md](./admin_ui_spec.md)** — サイト設定とイベントパネル
-7. **[draft_ui_spec.md](./draft_ui_spec.md)** — 下書きボタンとコネクタ
+7. **[draft_ui_spec.md](./draft_ui_spec.md)** — 下書き候補ボタンとコネクタ
 8. **[persistence_spec.md](./persistence_spec.md)** — 保存と Webinar への受け渡し
 
 ### 役割別
@@ -66,7 +66,7 @@
 | --- | --- |
 | [データ辞書](./data_dictionary.md) | メタキー、option、文書形への参照 |
 | [管理 UI](./admin_ui_spec.md) | サイト設定、イベントパネル、助言のメッセージ表示 |
-| [下書き UI](./draft_ui_spec.md) | ボタン、コネクタ、採用フロー |
+| [下書き候補 UI](./draft_ui_spec.md) | ボタン、コネクタ、採用フロー |
 | [永続化と受け渡し](./persistence_spec.md) | 保存、アンインストール、S2J Webinar |
 
 ### 運用

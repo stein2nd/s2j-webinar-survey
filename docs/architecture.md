@@ -29,9 +29,12 @@ flowchart TD
   S["サイト設定"] --> PHP
   PHP --> SVC["s2j/webinar-survey-service"]
   PHP --> AI["wp_ai_client_prompt"]
-  V["S2J Webinar"] -.->|"ready メタを読む"| PHP
+  PHP --> M["_s2j_webinar_survey メタ"]
+  V["S2J Webinar"] -.->|"ready をメタ直読"| M
   W["webinar-service"] -.->|"写像と HTTP"| V
 ```
+
+S2J Webinar 向けの公開 PHP / REST bridge は初版に置かない。受け渡しは [persistence_spec.md](./persistence_spec.md) である。
 
 ## フォルダー構成 (想定)
 

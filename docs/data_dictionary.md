@@ -13,7 +13,7 @@
 | --- | --- |
 | パネル文書 | 編集中の作業コピー (未保存可) |
 | メタ文書 | `_s2j_webinar_survey` に保存された正規化済み文書 (`status` 含む) |
-| 候補 | 下書き UI の一時データ (どちらにも未確定) |
+| 下書き候補 | 下書き UI の一時データ (どちらにも未確定)。文書の `status: draft` ではない。DraftKind は `survey` / `prompt` / `choices` |
 
 ## 非対象
 
@@ -32,12 +32,12 @@
 
 * `internal_name`
 * `questions[]` (`prompt`、`answer_kind`、`required`、`identifies_respondent`、`purpose`、`choices`、`score_min`、`score_max`、`label_low`、`label_high`)
-* `status` (`draft` \| `ready`) — パネル用語の「状態」(保存済みのみ)。**明示の投稿保存時**の `evaluate` 戻りでのみメタ文書へ書く。表示専用 `evaluate` では書き戻さない。メタ未作成時は「状態」バッジを出さない (または「未保存」)
+* `status` (`draft` \| `ready`) — パネル用語の「状態」(保存済みのみ。コードのまま表示)。日本語で「下書き」と呼ばない。**明示の投稿保存時**の `evaluate` 戻りでのみメタ文書へ書く。表示専用 `evaluate` では書き戻さない。メタ未作成時は「状態」バッジを出さない (または「未保存」)
 
 ### メタ文書に持たないもの
 
 * 助言・不足コードの列 (パネル表示時はパネル文書への揮発の `evaluate` で再計算。メタ非永続)
-* 候補 (人が採用するまで揮発。採用後はパネル文書へ。メタ文書は次の明示の投稿保存まで触らない)
+* 下書き候補 (人が採用するまで揮発。採用後はパネル文書へ。メタ文書は次の明示の投稿保存まで触らない)
 
 ## サイト option
 
@@ -45,7 +45,7 @@ Settings API の group / name は、本キーとそろえる。
 
 | キー | 型 | 説明 |
 | --- | --- | --- |
-| `s2j_webinar_survey_max_questions` | int | 設問総数の上限。受け付け1〜15。未設定・空はサービスに渡す場合6 |
+| `s2j_webinar_survey_max_questions` | int | 設問総数の上限。受け付け1〜15。Service へ渡す直前は必ず `int` (文字列のまま渡さない)。未設定・空・`(int)` 後に範囲外は6。詳細は [persistence_spec.md](./persistence_spec.md) |
 
 ## answer_kind (パネル表示)
 

@@ -2,6 +2,16 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-10
+
+### Changed
+
+* 表示専用 REST は `deficiencies` / `advice` のみとし、二層表示はメッセージとメタ `status` の対比にした。仮 `status` フィールドは持たない。
+* `max_questions` は Service 直前に必ず `int` 化する (未設定・範囲外は6)。読み出し規則を persistence に集約した。
+* 文書 `status` と下書き候補 (DraftKind) の用語を分離した。助言は Service 戻り多重度のまま表示する (重複除去しない)。
+* S2J Webinar は `_s2j_webinar_survey` をメタ直読とし、本プラグイン bridge は初版なしとした。図を修正した。
+* `choices_missing` の表示意図をサービス条件 (空でない選択肢が2つ未満) に合わせた。「その時点のサイト設定」をリクエスト処理時点の option と明記した。
+
 ## 0.0.1 - 2026-10-09
 
 * メタ登録を `object` / `show_in_rest` / `edit_post` 相当 auth と固定。クライアントの `status` は信頼しない。プロパティ JSON Schema 詳細は実装委ね (意味は Service 正本)。

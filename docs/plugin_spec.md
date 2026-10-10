@@ -107,17 +107,17 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 * プラグイン名は、「ウェビナーアンケート設問ジェネレータ」。サイト設定メニューとパネル見出しは、どちらも「アンケート設問」(同一文言でよい)。
 * 設問は、イベント編集画面で書く。1イベントにつき1つ。メタ文書は、`_s2j_webinar_survey`。
 * 答え方は、5つ。画像・スキップ・マッチング・ランク・空欄記入は、初版のパネルに出さない。
-* 下書きは、ボタンで1回頼む。採用まで候補はパネル文書にもメタ文書にも入らない。企画上の目的は、運営者が書く。
+* 下書き候補は、ボタンで1回頼む。採用までパネル文書にもメタ文書にも入らない。企画上の目的は、運営者が書く。文書の `status: draft` とは別。
 * API キーは、持たない。`wp_ai_client_prompt()` とコネクタを使う。
 * 助言があっても保存できる。不足がある場合だけ `draft`。`too_many` は助言のみ (不足ではない)。S2J Webinar は `ready` だけを読む。
-* 保存は GatherPress イベント編集からの明示の投稿「更新」に限定する (初版。除外と許可は [persistence_spec.md](./persistence_spec.md))。`evaluate` の正はサーバー。成功時は常にメタ文書を上書き (失敗時は書かない。`draft` / `ready` どちらも書く)。画面の「状態」はメタ文書のみ。
-* 表示専用 `evaluate`: 入力はいまのパネル文書。発火は開く／再読込 (その時点の上限) と下書き採用直後のみ。サイト設定変更だけでは開いたままの画面は自動更新しない。キー入力のたびには走らせない。メタ文書用は次の明示の投稿保存。保存成功後はパネル文書をメタ文書に同期する。
-* `evaluate` / 下書きとも搬送は UI → 本プラグイン PHP → Service。表示専用 REST は `…/v1/evaluate` (初版出力はコード列のみ)、下書き REST は `…/v1/draft` (1リクエスト)。正本は [persistence_spec.md](./persistence_spec.md) / [draft_ui_spec.md](./draft_ui_spec.md)。
+* 保存は GatherPress イベント編集からの明示の投稿「更新」に限定する (初版。除外と許可は [persistence_spec.md](./persistence_spec.md))。`evaluate` の正はサーバー。成功時は常にメタ文書を上書き (失敗時は書かない。`draft` / `ready` どちらも書く)。画面の「状態」はメタ文書のコードのみ (日本語で「下書き」と呼ばない)。
+* 表示専用 `evaluate`: 入力はいまのパネル文書。発火は開く／再読込 (そのリクエスト処理時点の option。`int` 化) と下書き採用直後のみ。サイト設定変更だけでは開いたままの画面は自動更新しない。キー入力のたびには走らせない。メタ文書用は次の明示の投稿保存。保存成功後はパネル文書をメタ文書に同期する。
+* `evaluate` / 下書きとも搬送は UI → 本プラグイン PHP → Service。表示専用 REST は `…/v1/evaluate` (初版出力は `deficiencies` / `advice` のみ。`status` なし)、下書き REST は `…/v1/draft` (1リクエスト)。正本は [persistence_spec.md](./persistence_spec.md) / [draft_ui_spec.md](./draft_ui_spec.md)。
 * パネル文書は `_s2j_webinar_survey` を `register_post_meta` (`object` / `show_in_rest` / `edit_post` 相当の auth) で載せ、保存は `save_post` でサーバーが正規化上書きする。クライアントの `status` は信頼しない。カスタム REST だけの別経路保存は初版しない。
 * メタ未作成時は「保存済み」バッジを出さない (または「未保存」)。
 * パネル冒頭に「大事な指針」(製品文案。実装は i18n、msgid は英語)。初版では誘導・二重問いを自動判定しない。
-* 設問総数の上限はサイト設定 `s2j_webinar_survey_max_questions` (1〜15、未設定時6)。イベント編集には出さない。
-* Zoom には送らない。添付は相手の通常「同期」での `attach_survey` (create 必須にしない)。写像・見出し/説明のデフォルト値は S2J Webinar / webinar-service の後続である。
+* 設問総数の上限はサイト設定 `s2j_webinar_survey_max_questions` (1〜15、未設定時6)。Service へは必ず `int`。イベント編集には出さない。
+* Zoom には送らない。添付は相手がメタを直読して通常「同期」で `attach_survey` (create 必須にしない。本プラグイン bridge は初版なし)。写像・見出し/説明のデフォルト値は S2J Webinar / webinar-service の後続である。
 * アンインストールで当該メタとサイト設定を消し、Zoom のアンケートは変更しない。
 
 ## 改訂履歴
@@ -143,3 +143,4 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 | 2026-10-09 | メタ登録は object / show_in_rest / edit_post 相当 auth。クライアント status 不信頼。プロパティ schema は実装委ね、と記録 |
 | 2026-10-09 | 監査 BP: Webinar 添付は同期の attach_survey (作成直後の表記を廃止)、REST 除外の切り分け、表示専用は現行2発火と注記、FOP 初出展開、と記録 |
 | 2026-10-09 | overview / status の委譲を「除外と許可」にそろえた、と記録 |
+| 2026-10-10 | 表示専用 REST は codes のみ・二層はメッセージ対比、`max_questions` は `int` 化、status と下書き候補の用語分離、助言多重度は戻りどおり、Webinar はメタ直読、と記録 |

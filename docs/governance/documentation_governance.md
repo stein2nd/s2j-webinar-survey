@@ -31,9 +31,9 @@ README と `docs/` の説明・命名が、実装とサービス契約からず�
 * コード名・キー名は、[data_dictionary.md](../data_dictionary.md) と Survey Service の contracts に従う。
 * 画面の表示文言は、「適切なメッセージ文を表示する」と書き、国際化関数の経由を前提とする (SPECS.md §4.2.1)。
 * Survey Service の `answer_kind` (`single` / `short` 等) と、Zoom の `type` (`short_answer` 等) を混同して書かない。写像は S2J Webinar / webinar-service の仕事である。
-* 「状態」はメタ文書の `status` (保存済み) のみを指す。S2J Webinar が読むのもこの `status` である。不足・助言はいまのパネル文書のライブ検査であり、メタの状態と混同しない。
+* 「状態」はメタ文書の `status` (保存済みの `draft` / `ready` コード) のみを指す。日本語で「下書き」と呼ばない。S2J Webinar が読むのもこの `status` である。不足・助言はいまのパネル文書のライブ検査であり、メタの状態と混同しない。
 * メタ文書への `evaluate` 書き込みは、初版では GatherPress イベント編集からの明示の投稿更新に限定する。除外と表示専用の発火・搬送は [persistence_spec.md](../persistence_spec.md) を正本とする。
-* 「パネル文書」「メタ文書」「候補」の呼び分けは [persistence_spec.md](../persistence_spec.md) / [data_dictionary.md](../data_dictionary.md) に従う。
+* 「パネル文書」「メタ文書」「下書き候補」の呼び分けは [persistence_spec.md](../persistence_spec.md) / [data_dictionary.md](../data_dictionary.md) に従う。
 * 「自由記述」は `short` / `long`、「選択式」は `single` / `multiple` の総称である (パネル名はデータ辞書)。
 * FOP は初出で Functional Object-Oriented Programming と展開する。
 * S2J Webinar の添付契機は相手の通常「同期」での `attach_survey` と書く。「作成直後」とは書かない (create の必須条件にしない)。
@@ -66,7 +66,7 @@ README と `docs/` の説明・命名が、実装とサービス契約からず�
 | --- | --- | --- |
 | 実装イニシアチブ | `docs/archive/impl-<slug>/` | まだない能力を初めて入れる |
 | 改修イニシアチブ | `docs/archive/mod-<slug>/` | すでに `docs/` にある仕様・振る舞いを変える |
-| 仕様リライトの旧正本 | `docs/archive/spec-<slug>/` または簡潔な英文名 | 公開正本の一式を置き換えたときの旧版 |
+| 仕様リライトの旧正本 | `docs/archive/spec-<slug>/` または簡潔な英文名 | 公開正本の一式を置き換えた場合の旧版 |
 
 `<slug>` は短い kebab-case とする。SemVer はフォルダー名に入れず、`status.md` や CHANGELOG に書く。
 
