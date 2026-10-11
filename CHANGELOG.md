@@ -2,6 +2,10 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-11
+
+* 開発依存を更新した (`@wordpress/*`、Vite v8.3.4、Rollup v4.64.5、`@types/node` v26.6.5等)。
+
 ## 0.0.1 - 2026-10-10
 
 ### Changed
