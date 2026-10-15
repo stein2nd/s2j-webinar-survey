@@ -2,6 +2,11 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-15
+
+* 初版 PHP アダプタ: Composer `s2j/webinar-survey-service`、メタ REST、`save_post` 正規化、表示専用 `POST …/v1/evaluate`、設定画面、Gutenberg 骨格パネル。
+* 配布: `dist:build` で Composer production + Vite、`release/*.zip` に `vendor/` 同梱 (CI `dist-zip.yml`)。
+* 品質: 段階1 `tests/smoke-local.sh`、段階2 `studio/smoke-test-blueprint.json`、`docs/test-results.md`、段階3 `composer test` + CI PHPUnit。
 * `docs/status.md` をチェックリスト・外部結合ゲート・ロードマップ付きに再構成した (実装％はプラグイン検証可能項のみ)。
 * textlint の許可パターンに `#status-*` アンカー ID を追加
 * 開発依存を更新した (`react` / `react-dom` 19.3.1、`@s2j/docs-linter` v1.0.29、Rollup v4.64.7等)。

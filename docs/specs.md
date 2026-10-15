@@ -8,6 +8,7 @@
 ## 共通仕様
 
 * [SPECS.md (共通仕様)](https://github.com/stein2nd/wp-plugin-spec/blob/main/docs/SPECS.md)
+* [PHP_CODING_STANDARDS.md (PHPCS / PHPCBF)](https://github.com/stein2nd/wp-plugin-spec/blob/main/docs/PHP_CODING_STANDARDS.md)
 
 ## 計算の正本 (Composer ライブラリ)
 

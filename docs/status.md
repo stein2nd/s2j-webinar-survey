@@ -1,6 +1,6 @@
 # S2J Webinar Survey - 実装状況
 
-最終更新: 2026-10-14
+最終更新: 2026-10-15
 
 索引は [specs.md](./specs.md) です。計算規則の正本は [Survey Service の `docs/`](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs/specs.md) です。
 
@@ -22,13 +22,13 @@
 | 機能名 | 実装済み/未実装 | 実装％ | 完了条件 (100%) |
 | --- | --- | --- | --- |
 | 仕様 (`docs/`) | 確定 | — | [§仕様分割](#status-spec-docs) |
-| Composer + Survey Service | 未実装 | 0 | [§Composer](#status-composer) (0/3) |
-| サイト設定 (設問上限) | 未実装 | 0 | [§設定](#status-settings) (0/3) |
-| イベントパネル (設問 CRUD) | 未実装 | 0 | [§管理 UI](#status-admin-ui) (0/8) |
-| 評価 + メタ文書 (`evaluate`) | 未実装 | 0 | [§永続化](#status-persistence) (0/6) |
+| Composer + Survey Service | 一部 | 67 | [§Composer](#status-composer) (2/3) |
+| サイト設定 (設問上限) | 一部 | 67 | [§設定](#status-settings) (2/3) |
+| イベントパネル (設問 CRUD) | 一部 | 13 | [§管理 UI](#status-admin-ui) (1/8) |
+| 評価 + メタ文書 (`evaluate`) | 一部 | 67 | [§永続化](#status-persistence) (4/6) |
 | 下書き + コネクタ (`draft`) | 未実装 | 0 | [§下書き UI](#status-draft) (0/4) |
 | S2J Webinar `ready` 読取 | 相手側 | — | Webinar [§Survey 引き渡し](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-survey) |
-| 配布・テスト、CI | 未着手 | 0 | [§品質・スモーク](#status-quality) (0/8) |
+| 配布・テスト、CI | 一部 | 50 | [§品質・スモーク](#status-quality) (4/8) |
 
 ## 100% 完了条件チェックリスト
 
@@ -41,16 +41,16 @@
 
 ### Composer {#status-composer}
 
-* [ ] `composer.json` — Packagist 名のみで `s2j/webinar-survey-service`
-* [ ] `vendor/autoload.php` ブートストラップ
-* [ ] Test: Service 橋渡し smoke
+* [x] `composer.json` — Packagist 名のみで `s2j/webinar-survey-service`
+* [x] `vendor/autoload.php` ブートストラップ
+* [ ] Test: Service 橋渡し smoke (段階1 WP-CLI)
 
 ### 設定 {#status-settings}
 
 正本: [admin_ui_spec.md](./admin_ui_spec.md) / [data_dictionary.md](./data_dictionary.md)
 
-* [ ] option `s2j_webinar_survey_max_questions` (1〜15、デフォルト6)
-* [ ] 設定 UI (管理画面)
+* [x] option `s2j_webinar_survey_max_questions` (1〜15、デフォルト6)
+* [x] 設定 UI (管理画面)
 * [ ] Test: option 保存
 
 ### 管理 UI {#status-admin-ui}
@@ -59,7 +59,7 @@
 
 #### プラグイン実装
 
-* [ ] GatherPress イベント Fill — 設問 CRUD、5種
+* [x] GatherPress イベント Fill — 骨格パネル (設問 CRUD・5種は follow-up)
 * [ ] 大事な指針 — パネル冒頭のみ
 * [ ] 不足・助言 — コード非表示、i18n メッセージ
 * [ ] コネクタ欠如時 — 下書きボタン非表示
@@ -76,12 +76,13 @@
 
 正本: [persistence_spec.md](./persistence_spec.md)
 
-* [ ] `register_post_meta` — `object` + `show_in_rest` + `edit_post` auth
-* [ ] 明示保存時 `evaluate` + メタ文書 (クライアント `status` 不信頼)
-* [ ] `save_post` 正規化 (成功時のみ)
-* [ ] `POST …/v1/evaluate` — 表示専用、コード列出力
-* [ ] 除外経路 — autosave / Quick Edit 等 ([persistence_spec.md](./persistence_spec.md))
-* [ ] Test: 純 PHPUnit + wp-env
+* [x] `register_post_meta` — `object` + `show_in_rest` + `edit_post` auth
+* [x] 明示保存時 `evaluate` + メタ文書 (クライアント `status` 不信頼)
+* [x] `save_post` 正規化 (成功時のみ)
+* [x] `POST …/v1/evaluate` — 表示専用、コード列出力
+* [x] 除外経路 — autosave / Quick Edit 等 ([persistence_spec.md](./persistence_spec.md))
+* [x] Test: 純 PHPUnit (`tests/Unit/*`)
+* [ ] Test: wp-env 統合
 
 ### 下書き UI {#status-draft}
 
@@ -94,18 +95,18 @@
 
 ### 品質・スモーク {#status-quality}
 
-* [ ] 段階3a: `composer test` + CI PHPUnit
-* [ ] 段階1: `tests/smoke-local.sh`
-* [ ] 段階2: `studio/smoke-test-blueprint.json`
+* [x] 段階3a: `composer test` + CI PHPUnit
+* [x] 段階1: `tests/smoke-local.sh`
+* [x] 段階2: `studio/smoke-test-blueprint.json`
 * [ ] `.wp-env.json` + wp-env PHPUnit
-* [ ] CI: js-lint / docs-lint / dist-zip / phpunit
-* [ ] [test-results.md](./test-results.md) — S2J Webinar と同型の3段階表
+* [x] CI: dist-zip / phpunit (js-lint / docs-lint は Workflow 追加時)
+* [x] [test-results.md](./test-results.md) — S2J Webinar と同型の3段階表
 * [ ] 段階3b — wp-env green
 * [ ] 手動 — Gutenberg 翻訳 (任意)
 
 ### アンインストール {#status-uninstall}
 
-* [ ] メタ + option 削除
+* [x] メタ + option 削除
 * [ ] Zoom 非接触
 
 ## 外部結合ゲート {#status-external}

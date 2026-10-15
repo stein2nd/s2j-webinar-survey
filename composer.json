@@ -1,0 +1,50 @@
+{
+	"name": "stein2nd/s2j-webinar-survey",
+	"description": "WordPress plugin adapter for S2J Webinar Survey Service",
+	"type": "wordpress-plugin",
+	"license": "GPL-3.0-or-later",
+	"require": {
+		"php": ">=8.1",
+		"s2j/webinar-survey-service": "^0.1"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^2.0",
+		"phpstan/phpstan": "^2.1",
+		"squizlabs/php_codesniffer": "^3.10",
+		"wp-coding-standards/wpcs": "^3.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+		"php-stubs/wordpress-stubs": "^6.8"
+	},
+	"autoload": {
+		"psr-4": {
+			"S2J\\WebinarSurvey\\": "includes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"S2J\\WebinarSurvey\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"test": "phpunit -c phpunit.xml.dist",
+		"phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon.dist --memory-limit=512M",
+		"phpcs": "@php vendor/bin/phpcs -p",
+		"phpcs:wpcs": "@php vendor/bin/phpcs -p --standard=phpcs.wpcs.xml.dist",
+		"phpcbf": "@php vendor/bin/phpcbf -p --standard=phpcs.xml.dist includes/ phpstan/bootstrap.php",
+		"lint:php": [
+			"@phpstan",
+			"@phpcs",
+			"@phpcs:wpcs"
+		]
+	},
+	"config": {
+		"sort-packages": true,
+		"platform": {
+			"php": "8.2.0"
+		},
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}
