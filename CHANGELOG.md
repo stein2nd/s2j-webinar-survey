@@ -2,6 +2,10 @@
 
 ## unreleased
 
+* `docs/status.md` をチェックリスト・外部結合ゲート・ロードマップ付きに再構成した (実装％はプラグイン検証可能項のみ)。
+* textlint の許可パターンに `#status-*` アンカー ID を追加
+* 開発依存を更新した (`react` / `react-dom` 19.3.1、`@s2j/docs-linter` v1.0.29、Rollup v4.64.7等)。
+
 ## 0.0.1 - 2026-10-11
 
 * 開発依存を更新した (`@wordpress/*`、Vite v8.3.4、Rollup v4.64.5、`@types/node` v26.6.5等)。
