@@ -1,14 +1,10 @@
-<!--
-目的：「プロジェクトの存在理由、概要、基本情報」の明文化
--->
-
 # S2J Webinar Survey - 概要
 
 本ドキュメントは、本プラグインの **基本情報および前提理解** を目的とします。
 
 ## はじめに
 
-本プラグインは、GatherPress のイベント編集画面でウェビナー後アンケートの設問を書き、回答の負担と企画上の目的について助言を見るための WordPress プラグインです。管理画面のプラグイン名は「ウェビナーアンケート設問ジェネレータ」です。
+本プラグインは、GatherPress のイベント編集画面でウェビナー後アンケートの設問を書き、回答の負担と企画上の目的について助言を見るための WordPress プラグインです。プラグイン一覧の表示名は **S2J Webinar Survey** です。
 
 両立したいのは、下記の2つです。
 
@@ -22,7 +18,7 @@
 | 項目 | 値 |
 | --- | --- |
 | 名称 | S2J Webinar Survey |
-| 管理画面名 | ウェビナーアンケート設問ジェネレータ |
+| プラグイン一覧名 | S2J Webinar Survey |
 | スラッグ | `s2j-webinar-survey` |
 | テキストドメイン | `s2j-webinar-survey` |
 | ライセンス | GPL-3.0-or-later |
@@ -30,7 +26,8 @@
 
 ## 提供機能
 
-* イベント編集パネルでの設問編集と保存
+* Document Settings の **S2J Webinar Survey** — 状態バッジ + **Open…** → Modal (Questions / Advice / Draft) で設問編集
+* モーダル **Update** または画面上部の投稿 **Update** でイベントとアンケートメタを保存 (`save_post` でサーバー `evaluate`)
 * イベント編集からの明示の投稿「更新」で `evaluate` し、成功時は常にメタ文書を上書き (失敗時は書かない)。成功後はパネル文書をメタ文書に同期。除外と許可は [persistence_spec.md](./persistence_spec.md)。再表示は表示専用 (開く／再読込・採用直後。上限は開き直しで反映。搬送は PHP 経由)。正本は [admin_ui_spec.md](./admin_ui_spec.md) / [persistence_spec.md](./persistence_spec.md)
 * サイト設定による設問総数の上限 (1〜15、未設定時は6)
 * ボタン押下時のみ、コネクタ経由の下書き提案と人手による採用

@@ -18,8 +18,8 @@ final class SettingsPage
     public static function add_menu(): void
     {
         add_options_page(
-            __('Survey questions', 's2j-webinar-survey'),
-            __('Survey questions', 's2j-webinar-survey'),
+            __('S2J Webinar Survey Questions', 's2j-webinar-survey'),
+            __('S2J Webinar Survey Questions', 's2j-webinar-survey'),
             'manage_options',
             's2j-webinar-survey',
             array( self::class, 'render' )
@@ -82,7 +82,7 @@ final class SettingsPage
         }
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__('Survey questions', 's2j-webinar-survey'); ?></h1>
+            <h1><?php echo esc_html__('S2J Webinar Survey Questions', 's2j-webinar-survey'); ?></h1>
             <form action="options.php" method="post">
                 <?php
                 settings_fields('s2j_webinar_survey');

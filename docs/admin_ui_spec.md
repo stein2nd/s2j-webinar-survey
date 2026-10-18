@@ -1,7 +1,3 @@
-<!--
-目的：「サイト設定とイベント編集パネル」の明文化
--->
-
 # S2J Webinar Survey - 管理 UI 仕様
 
 ## 設計意図 (ゴール)
@@ -12,7 +8,7 @@
 
 | 項目 | 内容 |
 | --- | --- |
-| メニュー見出し | アンケート設問 |
+| メニュー見出し | S2J Webinar Survey Questions |
 | 権限 | `manage_options` のみ |
 | 項目 | 設問総数の上限のみ |
 | 範囲 | 1以上15以下。範囲外は保存しない |
@@ -20,20 +16,27 @@
 | イベントパネル | 上限の入力は出さない |
 | Service に渡す型 | 常に `int`。読み出し規則の正本は [persistence_spec.md](./persistence_spec.md) (`max_questions` の読み出し) |
 
-投稿保存時・表示専用 `evaluate`・下書き REST は、いずれも **そのリクエスト処理時点** のサイト option を `int` 化して使う。開いたままのイベント画面は、サイト設定変更だけでは自動更新しない。
+投稿保存時・表示専用 `evaluate`・下書き REST は、いずれも **そのリクエスト処理時点** のサイト option を `int` 化して使います。開いたままのイベント画面は、サイト設定変更だけでは自動更新しません。
 
-サイト設定メニューとイベントパネル見出しは、どちらも「アンケート設問」とする (同一文言でよい)。
+サイト設定は **S2J Webinar Survey Questions**。イベント Document Settings パネルは **S2J Webinar Survey** (プラグイン一覧名と同型)。
 
 ## イベント編集パネル
 
 | 項目 | 内容 |
 | --- | --- |
-| 見出し | アンケート設問 (サイト設定メニューと同一文言でよい) |
+| 見出し | S2J Webinar Survey (S2J Webinar パネルと同型の i18n 英文) |
 | 置き場 | GatherPress のイベント編集画面。S2J Webinar のパネルとは別 |
 | 足し方 | 公開フックの外側から。フォーク本体は改変しない |
 | 権限 | そのイベントを編集できるユーザー |
+| シェル (初版) | Document Settings に **状態バッジ** + **Open…** のみ。編集本体は **Modal** (`@wordpress/components` `Modal` + `TabPanel`) |
+| タブ | **Questions** (指針 + 内部名 + 設問 CRUD + 設問別 prompt/choices 下書き) / **Advice** (表示専用 evaluate・コード→i18n メッセージ) / **Draft** (survey 下書き。コネクタ欠如時は案内のみ) |
+| 未保存 | パネルに警告。`ready` 保存済みかつ編集中は Webinar は前回 ready のまま、と明示 |
+| Update 後 | `save_post` 正規化後のメタを REST で再取得しパネル文書を同期 |
+| 保存 | モーダルフッターの **Update** = エディターと同じ投稿保存（アンケート専用保存はない）。**Close** = 保存せず閉じる |
+| パネル文書 | Gutenberg `useEntityProp` で `_s2j_webinar_survey`。編集はメタ経由でイベント保存に同梱 |
+| localize (`s2jWebinarSurvey`) | `restNamespace`、`metaKey`、`maxQuestions`、`hasDraftConnector` (`function_exists('wp_ai_client_prompt')`)、`connectorsSettingsUrl` (`options-connectors.php`) |
 
-### 大事な指針 (パネル冒頭のみ)
+### 大事な指針 (Questions タブ)
 
 サイト設定には出しません。下記は **日本語の製品文案** (ja ロケールで見せたい内容) です。PHP / JS への直書き原稿ではありません。実装では国際化関数 (`__()` / `_x()` / `@wordpress/i18n` 等) を必ず使い、msgid は英語を基本とします (日本語は翻訳リソース)。
 
@@ -49,7 +52,7 @@
 
 画像アップロード、スキップ、マッチング、ランク、空欄記入は、初版のパネルに出しません。
 
-* 内部名 (補足: 回答者には出さず、Zoom の一覧にだけ出る)
+* 内部名 (補足: 回答者には出さず、ウェビナー側の管理一覧向け。プロバイダ名は UI に出さない — [principles.md](./principles.md) §6)
 * 設問の列 (追加・削除・並べ替え)
 * 各設問:
   * 回答者に見せる文 (`prompt`)
@@ -59,6 +62,12 @@
   * 次回の企画で何を決めるか (`purpose`。補足: 回答者には出ない)
   * `single` / `multiple`: 選択肢の列
   * `rating`: `score_min` / `score_max` / `label_low` / `label_high`
+
+**選択肢 UI (初版):**
+
+* 単一／複数選択は **最低2件** の選択肢が必要 ([不足コード](#不足コード-表示の目安) `choices_missing`)。
+* **Remove choice** は選択肢が **3件以上** のときだけ表示する (2件のときは削除ボタンを出さず、説明文で Add choice を促す)。
+* 設問ごとに折りたたみ。Up / Down / Remove で並べ替え・削除。
 
 ### 投稿保存時と表示時の `evaluate`
 
@@ -71,8 +80,10 @@
 
 | 発火 | 入力 |
 | --- | --- |
-| パネルを開いた際 / イベント編集の再読込 | メタ文書をパネルに載せた直後のパネル文書。**このリクエスト処理時点** のサイト option (`int` 化後。未設定等は6) |
+| **Open…** でモーダルを開いた直後 (初回) | その時点のパネル文書。**このリクエスト処理時点** のサイト option (`int` 化後。未設定等は6) |
+| Advice タブの **Refresh advice** | 同上 (キー入力のたびには走らせない) |
 | 下書き採用直後 | 採用反映後のパネル文書。上限の読み出しは同上 |
+| イベント編集の再読込 | メタからパネル再初期化後、次回モーダル open で evaluate |
 
   * サイト設定で上限を変えても、開いたままの画面は自動更新しない。新しい上限は開き直し／再読込で反映する。REST 最小契約と `max_questions` 読み出しは [persistence_spec.md](./persistence_spec.md)。
   * 不足・助言のメッセージだけ更新する。編集中 (上記以外) のメッセージは直前の結果のままとする。
@@ -93,8 +104,9 @@
 
 * コード文字列を、画面に出さない。コードから適切なメッセージ文を表示する。
 * 表示文言はハードコードせず、本プラグインの国際化関数 (`s2j-webinar-survey` テキストドメイン) を必ず使う。英語 msgid → 選択ロケールの翻訳 (msgstr) 置換 → 表示、の流れに従う。
-* 用語: **msgid** は `__()` 等に渡す英語ソース文字列。**製品文案**は仕様上の日本語 (ja で見せたい内容。直書き原稿ではない)。**翻訳**は ja 等のメッセージリソース。
+* 用語: **msgid** は `__()` 等に渡す英語ソース文字列。**製品文案** は仕様上の日本語 (ja で見せたい内容。直書き原稿ではない)。**翻訳** は ja 等のメッセージリソース。
 * コード追加は、サービス側 minor。本プラグインは、未登録コードを汎用メッセージまたは「不明な指摘」にフォールバックしてかまわない。
+* 実装: `src/domain/evaluationMessages.ts` (Advice タブ)。POT / ja 翻訳は後続で [test-results.md](./test-results.md) 手動項と揃える。
 
 ### 不足コード (表示の目安)
 
@@ -112,7 +124,7 @@
 
 確定した英語 msgid は、実装時に POT に載せ、本表の「意図」と矛盾させません。日本語は翻訳 (msgstr) に置きます。
 
-多重度 (文書につき1回 / 該当設問ごと) の正本は Survey Service の [advice_spec.md](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs/core/advice_spec.md) です。UI は **Service の戻り列をそのまま表示**する。同じコードが複数回あれば同じ msgid を複数回出す (重複除去しない)。
+多重度 (文書につき1回 / 該当設問ごと) の正本は Survey Service の [advice_spec.md](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs/core/advice_spec.md) です。UI は **Service の戻り列をそのまま表示** します。同じコードが複数回あれば、同じ msgid を複数回出します (重複除去しない)。
 
 | コード | 表示の意図 |
 | --- | --- |

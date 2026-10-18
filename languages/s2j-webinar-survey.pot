@@ -1,0 +1,414 @@
+# Copyright (C) 2026 Koutarou ISHIKAWA
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: S2J Webinar Survey 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-webinar-survey\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-17T23:49:07+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: s2j-webinar-survey\n"
+
+#. Plugin Name of the plugin
+#: s2j-webinar-survey.php
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "S2J Webinar Survey"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: s2j-webinar-survey.php
+msgid "https://github.com/stein2nd/s2j-webinar-survey"
+msgstr ""
+
+#. Description of the plugin
+#: s2j-webinar-survey.php
+msgid "Write post-webinar survey questions and view design advice from the GatherPress event editor."
+msgstr ""
+
+#. Author of the plugin
+#: s2j-webinar-survey.php
+msgid "Koutarou ISHIKAWA"
+msgstr ""
+
+#. Author URI of the plugin
+#: s2j-webinar-survey.php
+msgid "https://stein2nd.wordpress.com"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:21
+#: includes/Admin/SettingsPage.php:22
+#: includes/Admin/SettingsPage.php:85
+msgid "S2J Webinar Survey Questions"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:43
+msgid "Question limits"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:45
+msgid "Site-wide limit for survey questions per event."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:55
+msgid "Maximum questions"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:72
+msgid "Allowed range: 1–15. Empty uses 6 when evaluating."
+msgstr ""
+
+#: includes/AiTextGeneration.php:24
+#: includes/Rest/DraftController.php:92
+msgid "AI connector is not available."
+msgstr ""
+
+#: includes/AiTextGeneration.php:32
+msgid "AI is disabled. Check Settings → Connectors."
+msgstr ""
+
+#: includes/AiTextGeneration.php:50
+msgid "No connector supports text generation."
+msgstr ""
+
+#: includes/AiTextGeneration.php:64
+#: includes/AiTextGeneration.php:74
+msgid "AI request failed. Try again."
+msgstr ""
+
+#: includes/AiTextGeneration.php:82
+#: includes/AiTextGeneration.php:90
+msgid "AI returned an unexpected response."
+msgstr ""
+
+#: includes/Rest/DraftController.php:63
+#: includes/Rest/EvaluateController.php:51
+msgid "Invalid event_id."
+msgstr ""
+
+#: includes/Rest/DraftController.php:71
+#: includes/Rest/EvaluateController.php:59
+msgid "Sorry, you are not allowed to edit this event."
+msgstr ""
+
+#: includes/Rest/DraftController.php:84
+#: includes/Rest/EvaluateController.php:72
+msgid "Survey service is not available."
+msgstr ""
+
+#: includes/Rest/DraftController.php:101
+#: includes/Rest/EvaluateController.php:81
+msgid "Invalid document."
+msgstr ""
+
+#: includes/Rest/DraftController.php:132
+#: includes/Rest/DraftController.php:166
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Draft request failed."
+msgstr ""
+
+#: includes/Rest/EvaluateController.php:99
+msgid "Evaluation failed."
+msgstr ""
+
+#: s2j-webinar-survey.php:41
+msgid "S2J Webinar Survey: run composer install in the plugin directory."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Internal name is empty."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Add at least one question."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "A question prompt is empty."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "A question has an invalid answer type."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "A single- or multiple-choice question needs at least two non-empty choices."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Choices were provided for a question type that does not use them."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "A rating scale has invalid bounds or labels."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Question count exceeds the site limit (advice only; you can still save)."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Place free-text questions after closed-ended ones."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "A required free-text question may reduce completion."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Place the respondent-identifying question last."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Add a planning purpose for a question (not shown to respondents)."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+#, js-format
+msgid "Unresolved deficiency: %s"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+#, js-format
+msgid "Unresolved advice: %s"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Deficiencies"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "None"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Advice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Single choice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Multiple choice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Short text"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Long text"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Rating scale"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Site question limit applies on save (not shown here)."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "No questions yet."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Up"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Down"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Remove"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Prompt (shown to respondents)"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Draft this prompt"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Answer type"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Required"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Identifies the respondent"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Planning purpose (not shown to respondents)"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Choices"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Choice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Remove choice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Single- and multiple-choice questions need at least two choices. Use Add choice before removing one."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Add choice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Draft choices"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Score minimum"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Score maximum"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Low label"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "High label"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Use this draft"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Add question"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Avoid leading questions that push a yes/no answer or assume dissatisfaction."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Avoid double-barreled questions that ask for two judgments in one sentence."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Evaluation request failed."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Questions"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Draft"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Design guidelines"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Internal name"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Not shown to respondents. Used on webinar provider admin lists when the survey is attached."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Evaluating…"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Refresh advice"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Each draft request calls the connector once. Nothing is saved until you update the event."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Suggest question drafts"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Question limit reached; survey drafts are hidden."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Add this question"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Per-question prompt and choice drafts are on the Questions tab."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Draft suggestions require an AI connector. Configure one under Settings → Connectors."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Open settings"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Update saves the event and survey now (evaluation runs on the server). You can save first and check Advice later, or Close to keep editing without saving."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Close"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Update"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Saved: ready"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Saved: draft"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Not saved yet"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "You have unsaved survey changes. Until you update the event, S2J Webinar keeps the last saved ready survey."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "You have unsaved survey changes. Update the event to save."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Open…"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Loading survey settings…"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "PluginDocumentSettingPanel is unavailable in this WordPress version."
+msgstr ""

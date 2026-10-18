@@ -1,4 +1,4 @@
-=== ウェビナーアンケート設問ジェネレータ ===
+=== S2J Webinar Survey ===
 Contributors: stein2nd
 Tags: webinar, survey, gatherpress
 Requires at least: 6.3
@@ -8,7 +8,7 @@ Stable tag: 0.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-GatherPress イベント編集でウェビナー後アンケートの設問を書き、助言を見るプラグインです。
+Write post-webinar survey questions and view design advice from the GatherPress event editor.
 
 == Description ==
 

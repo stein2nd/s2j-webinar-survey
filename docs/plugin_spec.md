@@ -4,7 +4,7 @@
 
 ## 概要
 
-本プラグインは、GatherPress のイベント編集画面で、ウェビナー後アンケートの設問を書き、回答の負担と企画上の目的について助言を見るためのものです。管理画面のプラグイン名は「ウェビナーアンケート設問ジェネレータ」です。
+本プラグインは、GatherPress のイベント編集画面で、ウェビナー後アンケートの設問を書き、回答の負担と企画上の目的について助言を見るためのものです。プラグイン一覧の表示名は **S2J Webinar Survey** です。
 
 スラッグは `s2j-webinar-survey` です。ライセンスは GPL-3.0-or-later です。テキストドメインは `s2j-webinar-survey` です。
 
@@ -104,7 +104,7 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 
 ## 採用した方針 (要約)
 
-* プラグイン名は、「ウェビナーアンケート設問ジェネレータ」。サイト設定メニューとパネル見出しは、どちらも「アンケート設問」(同一文言でよい)。
+* プラグイン一覧名・Document Settings パネル見出しは **S2J Webinar Survey** (S2J Webinar 等と同型)。サイト設定は **設定 > S2J Webinar Survey Questions**。
 * 設問は、イベント編集画面で書く。1イベントにつき1つ。メタ文書は、`_s2j_webinar_survey`。
 * 答え方は、5つ。画像・スキップ・マッチング・ランク・空欄記入は、初版のパネルに出さない。
 * 下書き候補は、ボタンで1回頼む。採用までパネル文書にもメタ文書にも入らない。企画上の目的は、運営者が書く。文書の `status: draft` とは別。
@@ -144,3 +144,4 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 | 2026-10-09 | 監査 BP: Webinar 添付は同期の attach_survey (作成直後の表記を廃止)、REST 除外の切り分け、表示専用は現行2発火と注記、FOP 初出展開、と記録 |
 | 2026-10-09 | overview / status の委譲を「除外と許可」にそろえた、と記録 |
 | 2026-10-10 | 表示専用 REST は codes のみ・二層はメッセージ対比、`max_questions` は `int` 化、status と下書き候補の用語分離、助言多重度は戻りどおり、Webinar はメタ直読、と記録 |
+| 2026-10-17 | 実装同期: Open… + Modal (CRUD / Advice i18n / Draft)、`POST …/draft`、保存後メタ再取得、Modal Update = savePost。正本は admin / draft / persistence / [status.md](./status.md)、と記録 |

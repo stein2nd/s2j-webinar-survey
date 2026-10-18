@@ -37,10 +37,28 @@ final class Assets
         wp_enqueue_script(
             's2j-webinar-survey-gutenberg',
             S2J_WEBINAR_SURVEY_PLUGIN_URL . $script,
-            array( 'wp-plugins', 'wp-edit-post', 'wp-element', 'wp-i18n', 'wp-data', 'wp-components' ),
+            array(
+                'wp-plugins',
+                'wp-edit-post',
+                'wp-editor',
+                'wp-element',
+                'wp-i18n',
+                'wp-data',
+                'wp-core-data',
+                'wp-api-fetch',
+                'wp-components',
+            ),
             (string) filemtime($path),
             true
         );
+
+        if (function_exists('wp_set_script_translations')) {
+            wp_set_script_translations(
+                's2j-webinar-survey-gutenberg',
+                's2j-webinar-survey',
+                S2J_WEBINAR_SURVEY_PLUGIN_DIR . 'languages'
+            );
+        }
 
         $style      = 'dist/css/s2j-webinar-survey-gutenberg.css';
         $style_path = S2J_WEBINAR_SURVEY_PLUGIN_DIR . $style;
@@ -57,8 +75,11 @@ final class Assets
             's2j-webinar-survey-gutenberg',
             's2jWebinarSurvey',
             array(
-                'restNamespace' => Constants::REST_NAMESPACE,
-                'metaKey'       => Constants::META_KEY,
+                'restNamespace'         => Constants::REST_NAMESPACE,
+                'metaKey'               => Constants::META_KEY,
+                'hasDraftConnector'     => function_exists('wp_ai_client_prompt'),
+                'connectorsSettingsUrl' => admin_url('options-connectors.php'),
+                'maxQuestions'          => MaxQuestions::for_service(),
             )
         );
     }

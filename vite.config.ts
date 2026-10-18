@@ -24,11 +24,20 @@ export default defineConfig({
 		rollupOptions: {
 			external: (id) => {
 				if (id.startsWith('@wordpress/')) return true;
-				if (id === 'react' || id === 'react-dom' || id === 'react-dom/client') return true;
+				if (
+					id === 'react' ||
+					id === 'react-dom' ||
+					id === 'react-dom/client' ||
+					id === 'react/jsx-runtime' ||
+					id === 'react/jsx-dev-runtime'
+				) {
+					return true;
+				}
 				return false;
 			},
 			input: entry,
 			output: {
+				banner: `window.S2JWebinarSurveyJSXRuntime=function(){var c=wp.element.createElement,f=wp.element.Fragment;function m(t,p,k){if(k!=null){p=Object.assign({},p,{key:k});}return c(t,p);}return{jsx:m,jsxs:m,Fragment:f};}();`,
 				globals: (id) => {
 					if (id.startsWith('@wordpress/')) {
 						const module = id.split('/').pop() ?? '';
@@ -38,10 +47,17 @@ export default defineConfig({
 						if (id === '@wordpress/i18n') return 'wp.i18n';
 						if (id === '@wordpress/plugins') return 'wp.plugins';
 						if (id === '@wordpress/edit-post') return 'wp.editPost';
+						if (id === '@wordpress/editor') return 'wp.editor';
+						if (id === '@wordpress/core-data') return 'wp.coreData';
+						if (id === '@wordpress/api-fetch') return 'wp.apiFetch';
 						return `wp.${module}`;
 					}
-					if (id === 'react') return 'React';
-					if (id === 'react-dom' || id === 'react-dom/client') return 'ReactDOM';
+					if (id === 'react' || id === 'react-dom' || id === 'react-dom/client') {
+						return 'wp.element';
+					}
+					if (id === 'react/jsx-runtime' || id === 'react/jsx-dev-runtime') {
+						return 'S2JWebinarSurveyJSXRuntime';
+					}
 					return id;
 				},
 				assetFileNames: (assetInfo) => {

@@ -6,9 +6,9 @@
  * @author Koutarou ISHIKAWA
  * @license GPL-3.0-or-later
  *
- * Plugin Name: ウェビナーアンケート設問ジェネレータ
+ * Plugin Name: S2J Webinar Survey
  * Plugin URI: https://github.com/stein2nd/s2j-webinar-survey
- * Description: GatherPress イベント編集でウェビナー後アンケートの設問を書き、助言を見るためのプラグインです。
+ * Description: Write post-webinar survey questions and view design advice from the GatherPress event editor.
  * Version: 0.0.1
  * Author: Koutarou ISHIKAWA
  * Author URI: https://stein2nd.wordpress.com

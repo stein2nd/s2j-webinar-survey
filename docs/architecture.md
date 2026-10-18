@@ -1,7 +1,3 @@
-<!--
-目的：「フォルダー構成、主要ファイル、技術スタック、責務」の明文化
--->
-
 # S2J Webinar Survey - アーキテクチャー
 
 ## 設計意図 (ゴール)
@@ -50,8 +46,10 @@ s2j-webinar-survey/
 ├── uninstall.php
 ├── docs/                      # 確定仕様 (governance / archive 含む)
 ├── docs_mod/                  # 改訂案と進行中イニシアチブ証跡
-├── includes/                  # PHP (Settings、Meta、Evaluate bridge、Draft bridge)
-├── src/                       # TS/React (admin settings、event panel)
+├── includes/                  # PHP (Settings、Meta、REST evaluate/draft、AiTextGeneration)
+├── src/
+│   ├── domain/                # document、question、evaluationMessages
+│   └── gutenberg/             # Document Settings、Modal、CRUD、meta sync
 ├── languages/
 └── vendor/                    # Composer (配布物では同梱方針に従う)
 ```

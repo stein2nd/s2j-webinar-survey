@@ -32,5 +32,5 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Run PHPUnit
-        run: composer test
+      - name: Run PHPUnit (unit only, no MySQL)
+        run: npm run test:unit:php:unit-only

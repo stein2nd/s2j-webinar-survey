@@ -1,7 +1,3 @@
-<!--
-目的：「下書きボタン、コネクタ、採用フロー」の明文化
--->
-
 # S2J Webinar Survey - 下書き候補 UI 仕様
 
 ## 設計意図 (ゴール)
@@ -25,11 +21,11 @@
 
 ## ボタン
 
-| ボタン | 種類 | 備考 |
-| --- | --- | --- |
-| 設問の下書きを提案 | `survey` | 上限到達時は出さない |
-| この設問文の下書き | `prompt` | 開いている1件。`focus_index` 必須 |
-| この選択肢の下書き | `choices` | 開いている `single` / `multiple` のみ。それ以外ではボタンを出さない (サーバー側の検証は残してよい) |
+| 製品意図 (ja) | UI msgid 目安 | 種類 | 置き場 | 備考 |
+| --- | --- | --- | --- | --- |
+| 設問の下書きを提案 | Suggest question drafts | `survey` | Modal **Draft** タブ | 上限到達時は非表示 + 説明 |
+| この設問文の下書き | Draft this prompt | `prompt` | **Questions** — 展開中1件 | `focus_index` 必須 |
+| この選択肢の下書き | Draft choices | `choices` | 同上 (`single` / `multiple` のみ) | 採用 **Use this draft**。他答え方ではボタン非表示 (サーバー検証は残す) |
 
 ### 呼び出し手順 (サーバー内)
 
@@ -56,7 +52,7 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 | パス | `POST /wp-json/s2j-webinar-survey/v1/draft` |
 | 権限 | `current_user_can( 'edit_post', $event_id )` 相当 (対象イベントを編集できること) |
 | 入力 | **`event_id` (投稿 ID) 必須**、`kind` (`survey` / `prompt` / `choices`)、上記のクライアント送付分。`max_questions` はサーバーがサイト option から読む (`int` 化。クライアント任意上書きは初版しない) |
-| 出力 | 下書き候補の配列 (kind に応じた形)。送らなかった場合は空配列。**メタは書かない** |
+| 出力 | JSON キー **`candidates`**: 下書き候補の配列 (kind に応じた形)。送らなかった場合は空配列。**メタは書かない** |
 | コネクタ欠如 | **初版の正はボタン非表示** (案内は上記)。呼ばれた場合は防衛的に適切な失敗メッセージ |
 | 失敗 | 権限不足、不正入力、Service 例外はログし、ユーザー向けは簡潔な失敗メッセージ。コネクタ失敗は再試行を促す。パネル文書は変えない |
 
@@ -64,8 +60,8 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 
 ### kind `survey`
 
-* 欄の横に一覧で出す。
-* 「この設問を足す」で1件ずつパネル文書にコピーする。
+* Draft タブに一覧で出す。
+* **Add this question** で1件ずつパネル文書末尾にコピーする。
 * 使わなかった下書き候補は捨てる (メタ文書にも残さない)。
 * コピー後も運営者は文を直せる。
 
@@ -86,6 +82,15 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 
 * サービスが `InvalidArgumentException` を投げた場合は、プログラマー誤り寄りとしてログし、ユーザーには簡潔な失敗メッセージを出す。
 * コネクタ失敗は、再試行を促す適切なメッセージ文を出す (国際化関数を経由)。パネル文書は変えない。
+
+## PHP 実装 (初版)
+
+| 要素 | 場所 |
+| --- | --- |
+| REST | `includes/Rest/DraftController.php` |
+| コネクタ 1 回 | `includes/AiTextGeneration.php` (`wp_ai_client_prompt`) |
+| Service 橋 | `includes/ServiceBridge.php` (`build_draft_prompt` / `parse_draft_response`) |
+| クライアント | `src/gutenberg/draftApi.ts`、Questions / Draft タブ |
 
 ## 関連
 

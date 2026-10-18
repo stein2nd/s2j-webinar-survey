@@ -1,7 +1,3 @@
-<!--
-設計原則
--->
-
 # S2J Webinar Survey - 設計原則
 
 ## 原則
@@ -39,7 +35,7 @@ S2J Webinar 向けの公開 PHP / REST bridge は初版に置かない。受け�
 * 助言・不足コードはメタの正本に残さない。
 * **保存のトリガー**は GatherPress イベント編集画面からの明示の投稿「更新」である (初版)。パネル専用保存は持たない。除外と許可の正本は [persistence_spec.md](./persistence_spec.md) (autosave、リビジョン、Quick Edit、一括編集、WP-CLI、独自カスタム REST によるメタ保存は除外。エディター経由のコア投稿 REST + `save_post` は許可)。
 * **投稿保存時:** パネル文書を `evaluate` し、成功時は戻りでメタ文書を常に上書きする (失敗時は書かない)。クライアント生メタは正本にしない。
-* **表示専用 `evaluate`** (メタ文書非書き戻し): 入力は常にいまのパネル文書。発火はパネルを開いた／再読込した際 (そのリクエスト処理時点のサイト option。`int` 化)、下書き採用直後のみ。キー入力のたびには走らせない。開いたままの画面はサイト設定変更で自動更新しない。搬送は UI → 本プラグイン PHP (REST 等) → Service。詳細は [persistence_spec.md](./persistence_spec.md)。
+* **表示専用 `evaluate`** (メタ文書非書き戻し): 入力は常にいまのパネル文書。発火は **Open…** で編集モーダルを開いた直後、Advice **Refresh**、下書き採用直後 (そのリクエスト処理時点のサイト option。`int` 化)。キー入力のたびには走らせない。開いたままの画面はサイト設定変更で自動更新しない。搬送は UI → 本プラグイン PHP (REST 等) → Service。詳細は [persistence_spec.md](./persistence_spec.md) / [admin_ui_spec.md](./admin_ui_spec.md)。
 * 不足・助言のメッセージは、直前に走らせた `evaluate` の `deficiencies` / `advice` から出す (多重度は戻りどおり。重複除去しない)。
 * **「状態」**はメタ文書の `status` (保存済みの `draft` / `ready` コード) だけを指す。日本語で「下書き」と呼ばない。S2J Webinar が読むのもこの保存済み `status` である。仮の `status` フィールドは持たない。メタの状態と同じ見た目の第二バッジは出さない。
 * メタ未作成 (初回未保存) の場合は「保存済み: draft / ready」バッジを出さない。出す場合は製品文案で「未保存」と明示する。1回以上の明示の投稿保存後のみ「保存済み: draft / ready」。

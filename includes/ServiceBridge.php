@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace S2J\WebinarSurvey;
 
+use function S2J\WebinarSurveyService\build_draft_prompt;
 use function S2J\WebinarSurveyService\evaluate;
+use function S2J\WebinarSurveyService\parse_draft_response;
 
 final class ServiceBridge
 {
@@ -44,5 +46,35 @@ final class ServiceBridge
             'deficiencies' => $result['deficiencies'],
             'advice'       => $result['advice'],
         );
+    }
+
+    /**
+     * @param 'survey'|'prompt'|'choices' $kind
+     * @param array<string, mixed>        $context
+     *
+     * @return array{prompt_text: string, requested_count: int}
+     */
+    public static function build_draft_prompt(string $kind, array $context): array
+    {
+        if (! self::is_available()) {
+            throw new \RuntimeException('s2j/webinar-survey-service is not loaded.');
+        }
+
+        return build_draft_prompt($kind, $context);
+    }
+
+    /**
+     * @param 'survey'|'prompt'|'choices' $kind
+     * @param array<string, mixed>        $context
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function parse_draft_response(string $kind, string $response, array $context): array
+    {
+        if (! self::is_available()) {
+            throw new \RuntimeException('s2j/webinar-survey-service is not loaded.');
+        }
+
+        return parse_draft_response($kind, $response, $context);
     }
 }

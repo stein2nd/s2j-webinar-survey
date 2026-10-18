@@ -15,7 +15,7 @@
 2. `npm run dist:build` 済み (または `composer install --no-dev` + `npm run build:production`) の本プラグインを `wp-content/plugins/s2j-webinar-survey` に配置 (symlink 推奨)。
 3. `wp plugin activate s2j-webinar-survey`。
 4. 管理画面を一度開く (mu-plugin が下書きイベント1件を追加)。
-5. GatherPress **イベント** 編集で Document Settings に **Survey questions** パネルが出ることを確認。
+5. GatherPress **イベント** 編集で Document Settings に **S2J Webinar Survey** パネルが出ることを確認。
 6. リポジトリルートで `WP_PATH='<WordPress ルート>' npm run test:smoke:local`。
 7. 結果を [docs/test-results.md](../docs/test-results.md) に記録。
 

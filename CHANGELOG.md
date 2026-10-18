@@ -2,6 +2,24 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-18
+
+* Gutenberg ビルド: Vite IIFE で JSX を `wp.element` に委譲 (`S2JWebinarSurveyJSXRuntime`)。`@wordpress/components` との React 二重化によるエディター描画エラーを修正。
+* Gutenberg i18n: `wp_set_script_translations` + `languages/*-{md5}.json`。`DocumentPanelFields` は `postId` / `postType` 確定後に `useEntityProp`。
+* `docs/status.md` / `docs/test-results.md` — Local 目視 (GatherPress、`ja` UI)、未完了分類 [cross_plugin_remaining_matrix.md](./docs/cross_plugin_remaining_matrix.md) (Webinar / Source QR に同期コピー)。
+* Gutenberg: 設問 CRUD、evaluate コードの i18n 表示、`POST …/v1/draft` + Draft タブ／設問別下書き、Update 後のメタ再取得でパネル同期、Modal **Update** = `savePost`、選択肢 Remove は3件以上のみ。
+* `docs/` — [status.md](./docs/status.md)、[admin_ui_spec.md](./docs/admin_ui_spec.md)、[draft_ui_spec.md](./docs/draft_ui_spec.md)、[persistence_spec.md](./docs/persistence_spec.md) 等を上記実装に同期。
+* `npm run lint:php` — `prelint:php` で Composer install。PHPStan `wp-ai-stubs.php`。
+* Gutenberg: Document Settings に Open… + Modal (Questions / Advice / Draft)。`useEntityProp` でパネル文書、`hasDraftConnector` / Connectors 設定 URL を localize。
+* PHPUnit (MLDC 同型、wp-env なし): `phpunit.unit.xml.dist` / `phpunit.xml.dist`、`bin/phpunit-local.sh`、`bin/install-wp-tests.sh`、`.env.tests.example`。
+* npm: `test:unit:php:unit-only` → `composer test:unit` (6)。`test:unit:php:local` → unit + MySQL/初回 svn 後 integration (2)。`pretest:unit:php:local` で `composer install`。CI は unit-only。
+* `tests/Integration/` — REST evaluate。bootstrap は `WP_TESTS_GATHERPRESS_DIR` / `WP_TESTS_GATHERPRESS_ALPHA_DIR` (任意) で GatherPress を先行読込。
+* IDE: `tests/stubs/wordpress-test-stubs.php`、`.vscode` Intelephense `includePaths`。
+* PHPCS: `includes/` は PSR-12、ルート PHP は WPCS。`composer phpcbf` は PSR-12のみ `includes/` (正本: wp-plugin-spec `PHP_CODING_STANDARDS.md`)。
+* PHPStan: `phpstan/bootstrap.php`。`SaveContext` のグローバル定数 `\WP_CLI`。`DraftController` 戻り型整理。
+* ESLint / Stylelint: `eslint src`、`.stylelintrc.json`。
+* `docs/test-results.md` / `docs/status.md` — 段階3ローカル手順と実施記録を更新。
+
 ## 0.0.1 - 2026-10-15
 
 * 初版 PHP アダプタ: Composer `s2j/webinar-survey-service`、メタ REST、`save_post` 正規化、表示専用 `POST …/v1/evaluate`、設定画面、Gutenberg 骨格パネル。

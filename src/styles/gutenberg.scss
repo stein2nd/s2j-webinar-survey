@@ -1,5 +1,119 @@
 .s2j-webinar-survey-panel {
+	&__status {
+		font-size: 12px;
+		color: #646970;
+	}
+
 	.description {
 		margin: 0;
+	}
+}
+
+.s2j-webinar-survey-questions {
+	&__item {
+		margin: 12px 0;
+		padding: 8px;
+		border: 1px solid #dcdcde;
+		border-radius: 2px;
+	}
+
+	&__item-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+	}
+
+	&__item-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
+	&__item-body {
+		margin-top: 12px;
+	}
+
+	&__choice-row {
+		display: flex;
+		align-items: flex-end;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	&__choices {
+		margin-top: 12px;
+	}
+
+	&__drafts {
+		margin: 12px 0 0;
+		padding-left: 1.2em;
+
+		li {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 8px;
+		}
+	}
+
+	&__error {
+		color: #b32d2e;
+	}
+}
+
+.s2j-webinar-survey-modal {
+	&__tab {
+		margin-top: 8px;
+		min-height: 200px;
+	}
+
+	&__guidelines {
+		margin: 8px 0 0;
+		padding-left: 1.2em;
+	}
+
+	&__subhead {
+		margin: 16px 0 8px;
+		font-size: 13px;
+	}
+
+	&__messages {
+		margin: 0 0 12px;
+		padding-left: 1.2em;
+	}
+
+	&__draft-list {
+		margin: 12px 0;
+		padding-left: 1.2em;
+
+		li {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 8px;
+		}
+	}
+
+	&__footer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-top: 16px;
+		padding-top: 16px;
+		border-top: 1px solid #dcdcde;
+	}
+
+	&__footer-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 8px;
 	}
 }
