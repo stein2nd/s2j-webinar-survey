@@ -35,7 +35,7 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 
 渡してはいけないもの: 登壇者メール、申込者情報。`max_questions` はクライアントから送らない (送ってきても無視する)。
 
-`event_id` は REST 権限チェック用である。Service の `$context` には載せない。PHP は権限確認後に落とし、Service へは題名・パネル文書断片・`kind`・`focus_index`・答え方・`purpose` などと、サイト option から注入した `max_questions` (`int`。読み出し規則は [persistence_spec.md](./persistence_spec.md) と同じ) だけを渡す。
+`event_id` は REST 権限チェック用である。Service の `$context` には載せない。PHP は権限確認後に落とし、Service には題名・パネル文書断片・`kind`・`focus_index`・答え方・`purpose` などと、サイト option から注入した `max_questions` (`int`。読み出し規則は [persistence_spec.md](./persistence_spec.md) と同じ) だけを渡す。
 
 1. `build_draft_prompt( $kind, $context )` → `{ prompt_text, requested_count }`
 2. `prompt_text` が空、または `requested_count` が0ならコネクタに送らず、下書き候補なしで返す (`survey` の上限到達など)

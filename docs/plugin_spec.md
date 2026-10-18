@@ -116,7 +116,7 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 * パネル文書は `_s2j_webinar_survey` を `register_post_meta` (`object` / `show_in_rest` / `edit_post` 相当の auth) で載せ、保存は `save_post` でサーバーが正規化上書きする。クライアントの `status` は信頼しない。カスタム REST だけの別経路保存は初版しない。
 * メタ未作成時は「保存済み」バッジを出さない (または「未保存」)。
 * パネル冒頭に「大事な指針」(製品文案。実装は i18n、msgid は英語)。初版では誘導・二重問いを自動判定しない。
-* 設問総数の上限はサイト設定 `s2j_webinar_survey_max_questions` (1〜15、未設定時6)。Service へは必ず `int`。イベント編集には出さない。
+* 設問総数の上限はサイト設定 `s2j_webinar_survey_max_questions` (1〜15、未設定時6)。Service には必ず `int`。イベント編集には出さない。
 * Zoom には送らない。添付は相手がメタを直読して通常「同期」で `attach_survey` (create 必須にしない。本プラグイン bridge は初版なし)。写像・見出し/説明のデフォルト値は S2J Webinar / webinar-service の後続である。
 * アンインストールで当該メタとサイト設定を消し、Zoom のアンケートは変更しない。
 

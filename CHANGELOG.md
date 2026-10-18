@@ -4,6 +4,8 @@
 
 ## 0.0.1 - 2026-10-18
 
+* Git: `.phpunit.result.cache` をバージョン管理から除外 (初期コミットで追跡されていたため `git rm --cached`。ローカル生成のみ)。
+
 * Gutenberg ビルド: Vite IIFE で JSX を `wp.element` に委譲 (`S2JWebinarSurveyJSXRuntime`)。`@wordpress/components` との React 二重化によるエディター描画エラーを修正。
 * Gutenberg i18n: `wp_set_script_translations` + `languages/*-{md5}.json`。`DocumentPanelFields` は `postId` / `postType` 確定後に `useEntityProp`。
 * `docs/status.md` / `docs/test-results.md` — Local 目視 (GatherPress、`ja` UI)、未完了分類 [cross_plugin_remaining_matrix.md](./docs/cross_plugin_remaining_matrix.md) (Webinar / Source QR に同期コピー)。
