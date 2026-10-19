@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "s2j/webinar-survey-service",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stein2nd/s2j-webinar-survey-service.git",
-                "reference": "e3e365661cc7b146cdeed24016d1fe2f8ffab2a1"
+                "reference": "f1195c48059f9e802e25e426a3a22cd41f9de356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stein2nd/s2j-webinar-survey-service/zipball/e3e365661cc7b146cdeed24016d1fe2f8ffab2a1",
-                "reference": "e3e365661cc7b146cdeed24016d1fe2f8ffab2a1",
+                "url": "https://api.github.com/repos/stein2nd/s2j-webinar-survey-service/zipball/f1195c48059f9e802e25e426a3a22cd41f9de356",
+                "reference": "f1195c48059f9e802e25e426a3a22cd41f9de356",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 "issues": "https://github.com/stein2nd/s2j-webinar-survey-service/issues",
                 "source": "https://github.com/stein2nd/s2j-webinar-survey-service"
             },
-            "time": "2026-10-16T06:55:05+00:00"
+            "time": "2026-10-19T03:09:26+00:00"
         }
     ],
     "packages-dev": [
