@@ -145,3 +145,4 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 | 2026-10-09 | overview / status の委譲を「除外と許可」にそろえた、と記録 |
 | 2026-10-10 | 表示専用 REST は codes のみ・二層はメッセージ対比、`max_questions` は `int` 化、status と下書き候補の用語分離、助言多重度は戻りどおり、Webinar はメタ直読、と記録 |
 | 2026-10-17 | 実装同期: Open… + Modal (CRUD / Advice i18n / Draft)、`POST …/draft`、保存後メタ再取得、Modal Update = savePost。正本は admin / draft / persistence / [status.md](./status.md)、と記録 |
+| 2026-10-19 | Local 検証一式: wp-env 非採用、3b = `test:unit:php:local` (integration **9**)。下書き filter `s2j_webinar_survey_draft_ai_text`、smoke で Service + REST。Draft/Questions のコネクタ UI 差 ([draft_ui_spec.md](./draft_ui_spec.md))。正本は [architecture.md §検証](./architecture.md#検証-段階1-3) / [test-results.md](./test-results.md)、と記録 |

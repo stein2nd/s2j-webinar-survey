@@ -1,6 +1,6 @@
 # S2J Webinar Survey - 実装状況
 
-最終更新: 2026-10-18
+最終更新: 2026-10-19
 
 索引は [specs.md](./specs.md) です。計算規則の正本は [Survey Service の `docs/`](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs/specs.md) です。
 
@@ -23,28 +23,28 @@
 | 機能名 | 実装済み/未実装 | 実装％ | 完了条件 (100%) |
 | --- | --- | --- | --- |
 | 仕様 (`docs/`) | 確定 | — | [§仕様分割](#status-spec-docs) |
-| Composer + Survey Service | 一部 | 67 | [§Composer](#status-composer) (2/3) |
-| サイト設定 (設問上限) | 一部 | 67 | [§設定](#status-settings) (2/3) |
-| イベントパネル (設問 CRUD) | 一部 | 100 | [§管理 UI](#status-admin-ui) (8/8) |
-| 評価 + メタ文書 (`evaluate`) | 一部 | 83 | [§永続化](#status-persistence) (5/6) |
-| 下書き + コネクタ (`draft`) | 一部 | 75 | [§下書き UI](#status-draft) (3/4) |
+| Composer + Survey Service | 実装済み | 100 | [§Composer](#status-composer) (3/3) |
+| サイト設定 (設問上限) | 実装済み | 100 | [§設定](#status-settings) (3/3) |
+| イベントパネル (設問 CRUD) | 実装済み | 100 | [§管理 UI](#status-admin-ui) (8/8) |
+| 評価 + メタ文書 (`evaluate`) | 実装済み | 100 | [§永続化](#status-persistence) (6/6) |
+| 下書き + コネクタ (`draft`) | 実装済み | 100 | [§下書き UI](#status-draft) (4/4) |
 | S2J Webinar `ready` 読取 | 相手側 | — | Webinar [§Survey 引き渡し](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-survey) |
-| 配布・テスト、CI | 一部 | 75 | [§品質・スモーク](#status-quality) (6/8) |
+| 配布・テスト、CI | 実装済み | 100 | [§品質・スモーク](#status-quality) (6/6) |
 
 ## 100% 完了条件チェックリスト
 
-各§は **プラグイン実装 → Test (PHPUnit / smoke) → Test (wp-env)** の順。Zoom / 手動は [§外部結合ゲート](#status-external)。
+各§は **プラグイン実装 → Test (PHPUnit / smoke)** の順。**段階3b** は wp-env ではなく **`npm run test:unit:php:local`** (MySQL + WP テスト lib) を正本とする。Zoom / 手動は [§外部結合ゲート](#status-external)。
 
 ### 仕様分割 {#status-spec-docs}
 
 * [x] 正本が `docs/`、変更案は `docs_mod/` ([governance/documentation_governance.md](./governance/documentation_governance.md))
-* [ ] CI: `docs-lint` (Workflow 追加時)
+* [x] CI: `docs-lint` ([`.github/workflows/docs-lint.yml`](../.github/workflows/docs-lint.yml))
 
 ### Composer {#status-composer}
 
 * [x] `composer.json` — Packagist 名のみで `s2j/webinar-survey-service`
 * [x] `vendor/autoload.php` ブートストラップ
-* [ ] Test: Service 橋渡し smoke (段階1 WP-CLI)
+* [x] Test: Service 橋渡し smoke (段階1: `tests/smoke-local.sh` — `ServiceBridge::evaluate` + REST ルート)
 
 ### 設定 {#status-settings}
 
@@ -52,7 +52,7 @@
 
 * [x] option `s2j_webinar_survey_max_questions` (1〜15、デフォルト6)
 * [x] 設定 UI (管理画面)
-* [ ] Test: option 保存
+* [x] Test: option 保存 ([`MaxQuestionsIntegrationTest.php`](../tests/Integration/MaxQuestionsIntegrationTest.php))
 
 ### 管理 UI {#status-admin-ui}
 
@@ -61,10 +61,10 @@
 #### プラグイン実装
 
 * [x] Document Settings — 状態バッジ + **Open…** + **Modal** (Questions / Advice / Draft)
-* [x] 設問 CRUD — 5種、選択肢、レーティング境界、並べ替え
+* [x] 設問 CRUD: 5種、選択肢、レーティング境界、並べ替え
 * [x] 大事な指針 — Questions タブ内 (i18n 英文 msgid)
-* [x] 不足・助言 — Advice タブ、コード→i18n (`evaluationMessages`)。未登録コードはフォールバック
-* [x] コネクタ欠如時 — 下書きボタン非表示 + **Settings → Connectors** 案内 (`options-connectors.php`)
+* [x] 不足・助言 — Advice タブ、コード→ i18n (`evaluationMessages`)。未登録コードはフォールバック
+* [x] コネクタ — Draft タブは `hasDraftConnector` 欠如時 Connectors 案内。Questions の per-field 下書きは REST 失敗メッセージ (初版維持)
 * [x] 表示専用 `evaluate` — モーダル表示時、Advice **Refresh**、下書き採用直後
 * [x] Gutenberg — `useEntityProp` + 投稿 **Update** 後メタ再取得でパネル同期・未保存警告
 * [x] Gutenberg — `postId` / `postType` 確定後のみ `useEntityProp` (初回描画のガード)
@@ -75,9 +75,9 @@
 
 #### Test
 
-* [x] 手動 (Local): GatherPress イベント編集 — Document Settings パネル・Modal・**JA 翻訳表示** ([test-results.md](./test-results.md) 2026-10-18)
-* [ ] Smoke: REST / Fill 到達 (`tests/smoke-local.sh` / WP-CLI)
-* [ ] wp-env — メタ REST 往復
+* [x] 手動 (Local): GatherPress — 設定上限保存、Open… → Modal、質問 CRUD、**選択肢を下書き** (テキスト生成コネクタ未設定時のエラー)、**JA UI** ([test-results.md](./test-results.md) 2026-10-18 / **2026-10-19**)
+* [x] Smoke: REST 到達 (`tests/smoke-local.sh` — evaluate + draft ルート、`ServiceBridge::evaluate`)
+* [x] Test: メタ REST 往復 — Local Integration ([`PanelMetaRestIntegrationTest.php`](../tests/Integration/PanelMetaRestIntegrationTest.php)；wp-env 不要)
 
 ### 永続化 {#status-persistence}
 
@@ -90,8 +90,7 @@
 * [x] エディター保存後 — クライアントがコア REST でメタ再取得しパネル文書を正規化結果に同期
 * [x] 除外経路 — autosave / Quick Edit 等 ([persistence_spec.md](./persistence_spec.md))
 * [x] Test: 純 PHPUnit (`tests/Unit/*`)
-* [x] Test: ローカル統合 (`tests/Integration/` — evaluate + draft ルート)
-* [ ] Test: wp-env 統合 (任意)
+* [x] Test: ローカル統合 (`tests/Integration/` — evaluate / draft / meta / option / uninstall)
 
 ### 下書き UI {#status-draft}
 
@@ -100,25 +99,25 @@
 * [x] `POST …/v1/draft` — build → `AiTextGeneration` / コネクタ → parse (1リクエスト、`candidates`)
 * [x] UI — survey (Draft タブ)、prompt / choices (Questions タブ)、採用→パネル文書のみ
 * [x] Test: draft ルート登録 (統合)
-* [ ] Test: コネクタモック / E2E 採用フロー
+* [x] Test: コネクタモック — filter `s2j_webinar_survey_draft_ai_text` + [`DraftControllerMockIntegrationTest.php`](../tests/Integration/DraftControllerMockIntegrationTest.php) (メタ非更新)
 
 ### 品質・スモーク {#status-quality}
 
-* [x] 段階3a: `npm run test:unit:php:unit-only` + CI PHPUnit
-* [x] 段階1: `tests/smoke-local.sh`
+**Local 自動 (wp-env 非採用):** `npm run test:quality:local` (= unit-only → `lint:php` → MySQL 統合) または個別に `test:unit:php:unit-only` / `lint:php` / `phpcs:wpcs` / `test:unit:php:local`。
+
+* [x] 段階3a: `npm run test:unit:php:unit-only` + CI PHPUnit ([`.github/workflows/phpunit.yml`](../.github/workflows/phpunit.yml))
+* [x] 段階1: `tests/smoke-local.sh` / `npm run test:smoke:local`
 * [x] 段階2: `studio/smoke-test-blueprint.json`
-* [x] ローカル統合: `npm run test:unit:php:local` (MySQL + svn、`bin/install-wp-tests.sh`)
-* [x] `npm run lint:php` — `prelint:php` で Composer dev 依存、PHPStan + PHPCS
-* [ ] `.wp-env.json` + wp-env PHPUnit (任意・未採用)
-* [x] CI: dist-zip / phpunit (js-lint / docs-lint は Workflow 追加時)
+* [x] 段階3b — `npm run test:unit:php:local` green (**2026-10-19** — unit **6** + integration **9**)
+* [x] `npm run lint:php` — `prelint:php` で Composer dev 依存、PHPStan + PHPCS (+ `npm run phpcs:wpcs` ルート PHP)
+* [x] CI: dist-zip / phpunit / **docs-lint** ([`.github/workflows/docs-lint.yml`](../.github/workflows/docs-lint.yml))
 * [x] [test-results.md](./test-results.md) — S2J Webinar と同型の3段階表
-* [ ] 段階3b — wp-env green
-* [x] 手動 — Gutenberg 翻訳 (`ja` Jed JSON、Local 目視 2026-10-18)
+* [x] 手動 — Gutenberg 翻訳 (`ja` Jed JSON、Local 目視: 2026-10-18)
 
 ### アンインストール {#status-uninstall}
 
 * [x] メタ + option 削除
-* [ ] Zoom 非接触
+* [x] Zoom 非接触 — [`UninstallBehaviorIntegrationTest.php`](../tests/Integration/UninstallBehaviorIntegrationTest.php) (`uninstall.php` の DB 操作のみ)
 
 ## 外部結合ゲート {#status-external}
 
@@ -135,7 +134,7 @@
 
 ## 補足
 
-* 3 プラグイン横断の未完了分類: [cross_plugin_remaining_matrix.md](./cross_plugin_remaining_matrix.md) (Webinar / Source QR に同期コピーあり)。
+* 3プラグイン横断の未完了分類: [cross_plugin_remaining_matrix.md](./cross_plugin_remaining_matrix.md) (Webinar / Source QR に同期コピーあり)。
 * **実装％** はプラグイン検証可能項のみ。
 * Zoom 添付の実装は S2J Webinar 側 sync 後続 ([plugin_spec.md](./plugin_spec.md))。
 * UX 参照: [S2J ウェビナー・ソース追跡 QR](https://github.com/stein2nd/s2j-webinar-source-qr/blob/main/docs/overview.md) (別 Fill、Open… + Modal パターン)。
@@ -144,8 +143,8 @@
 
 1. **Composer + Service** — 済
 2. **メタ + evaluate** — 済 (クライアント同期含む)
-3. **管理 UI** — 初版 UI 済 (Gutenberg i18n 配線・Local 目視済。REST 自動スモーク・wp-env は残)
-4. **draft + コネクタ** — REST + UI 済 (実 LLM・モックテストは残)
-5. **配布、CI** — 一部済
-6. **品質 (段階1–3)** — ローカル PHPUnit 済、wp-env 任意は未
+3. **管理 UI** — 済 (Gutenberg i18n、Local 手動・自動 smoke / Integration)
+4. **draft + コネクタ** — 済 (REST + UI、AI モック Integration)
+5. **配布、CI** — 済 (docs-lint / phpunit / dist-zip)
+6. **品質 (段階1–3)** — 済 (wp-env なし、Local MySQL 3b)
 7. **外部結合 (E3 – E4)** — 未

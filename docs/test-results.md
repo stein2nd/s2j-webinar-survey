@@ -10,7 +10,7 @@
 | **2** | テストサイト構成の再現 (GatherPress 同梱) | WordPress Studio、Blueprints | [`studio/smoke-test-blueprint.json`](../studio/smoke-test-blueprint.json) |
 | **3** | PHP 自動テスト、PR 時のゲート | PHPUnit、GitHub Actions | `npm run test:unit:php:unit-only` (CI) / `npm run test:unit:php:local` (MySQL + 初回 svn) |
 
-段階1・2は実 WordPress、段階3の現状は **WordPress を起動しない** ユニットテストです。
+段階1・2は実 WordPress。段階3a は **WordPress を起動しない** ユニット、3b は **MySQL + WP テスト lib** の統合 (wp-env 非採用) です。
 
 **依存:** 段階1・2では **[GatherPress](https://wordpress.org/plugins/gatherpress/)** と **gatherpress-alpha** の有効化が必要です。
 
@@ -48,6 +48,7 @@
 | 6 | Modal **Update** | 保存後バッジ・未保存警告が追随 (メタ再取得) |
 | 7 | REST `POST …/v1/evaluate` | 200 + deficiencies / advice コード列 |
 | 8 | REST `POST …/v1/draft` | コネクタあり時 200 + `candidates` (E2) |
+| 5c | Questions — 設問2件 + **選択肢を下書き** | テキスト生成コネクタ未設定時、設問行下にエラー (例: `No connector supports text generation.` → JA「テキスト生成に対応しているコネクタはありません。」)。Modal は維持 |
 
 **自動:**
 
@@ -95,7 +96,9 @@ npm run test:unit:php:local
 # 実体: bin/phpunit-local.sh → test:unit → (必要なら install-wp-tests.sh) → test:integration
 ```
 
-統合テストは `tests/Integration/` (`EvaluateControllerIntegrationTest` + `DraftControllerIntegrationTest` — ルート登録・権限)。GatherPress + Gutenberg UI は段階1スモーク / Studio で補います。
+統合テストは `tests/Integration/` — evaluate / draft ルート、option 保存、メタ REST 往復、filter モック draft、Zoom 非接触 uninstall。GatherPress + Gutenberg UI は段階1スモーク / Studio で補います。
+
+**段階1 自動 (`tests/smoke-local.sh`):** `ServiceBridge::evaluate()`、`POST …/v1/evaluate` / `…/v1/draft` ルート到達 (WP-CLI `wp eval` + REST HEAD)。
 
 ### 3c. 段階1スモーク (WP-CLI)
 
@@ -110,6 +113,10 @@ npm run test:smoke:local
 | 日付 | 環境 | 段階 | 結果 | メモ |
 | --- | --- | --- | --- | --- |
 | 2026-10-16 | Local (PHPUnit) | 3 | PASS | unit 6 + integration 2。`.env.tests` + 初回 install-wp-tests (WP 7.1.3) |
+| 2026-10-19 | Local (PHPUnit) | 3b | PASS | `npm run test:unit:php:local` — integration **9** (evaluate / draft / meta / option / mock draft / uninstall)。`PanelMetaRestIntegrationTest` は `post` + REST 往復 |
+| 2026-10-19 | Local (PHPUnit) | 3a | PASS | `npm run test:unit:php:unit-only` — unit **6** |
+| 2026-10-19 | CI 相当 (Local) | lint | PASS | `npm run lint:php` (PHPStan + PHPCS) |
 | 2026-10-17 | — | — | — | 仕様を Modal CRUD / draft REST / lint:php `prelint:php` に同期 ([status.md](./status.md)) |
 | 2026-10-18 | Local (GatherPress) | 1 | PASS (手動) | イベント編集: Document Settings パネル・Open… → Modal (Questions / Advice / Draft)。`ja` Jed JSON 目視 OK |
 | 2026-10-18 | Local (実装) | — | FIX | Gutenberg: Vite が JSX ランタイムを同梱し `wp.element` と混在 → ハードリロード後にプラグイン描画エラー。`S2JWebinarSurveyJSXRuntime` + `wp_set_script_translations` + `postId`/`postType` ガード ([status.md §管理 UI](./status.md#status-admin-ui)) |
+| 2026-10-19 | Local (GatherPress) | 1 | PASS (手動) | **設定 > S2J Webinar Survey Questions** 上限保存 → イベント **Open…** → 質問2件 CRUD → **選択肢を下書き**: 期待どおりエラー。**前提:** **設定 > コネクタ** で Anthropic / Google / OpenAI は未インストール (テキスト生成コネクタなし)。`hasDraftConnector` は `wp_ai_client_prompt` 有無のみ。サイト `Webinar Survey Smoke` / WP 7.1.3 |

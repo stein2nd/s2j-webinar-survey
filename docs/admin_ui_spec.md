@@ -32,9 +32,11 @@
 | タブ | **Questions** (指針 + 内部名 + 設問 CRUD + 設問別 prompt/choices 下書き) / **Advice** (表示専用 evaluate・コード→i18n メッセージ) / **Draft** (survey 下書き。コネクタ欠如時は案内のみ) |
 | 未保存 | パネルに警告。`ready` 保存済みかつ編集中は Webinar は前回 ready のまま、と明示 |
 | Update 後 | `save_post` 正規化後のメタを REST で再取得しパネル文書を同期 |
-| 保存 | モーダルフッターの **Update** = エディターと同じ投稿保存（アンケート専用保存はない）。**Close** = 保存せず閉じる |
+| 保存 | モーダルフッターの **Update** = エディターと同じ投稿保存 (アンケート専用保存はない)。**Close** = 保存せず閉じる |
 | パネル文書 | Gutenberg `useEntityProp` で `_s2j_webinar_survey`。編集はメタ経由でイベント保存に同梱 |
 | localize (`s2jWebinarSurvey`) | `restNamespace`、`metaKey`、`maxQuestions`、`hasDraftConnector` (`function_exists('wp_ai_client_prompt')`)、`connectorsSettingsUrl` (`options-connectors.php`) |
+
+**コネクタと下書きボタン (初版):** `hasDraftConnector` は Connectors API の有無のみ。Draft タブの survey 下書きは false のとき UI を隠し Connectors に誘導する。**Questions** の設問別 prompt/choices 下書きは true のときボタンを出し、テキスト生成コネクタ未設定なら REST エラーを行下に表示する (詳細は [draft_ui_spec.md §コネクタ欠如時](./draft_ui_spec.md#コネクタ欠如時))。
 
 ### 大事な指針 (Questions タブ)
 
@@ -133,6 +135,12 @@
 | `required_open` | 必須の自由記述 (`short` / `long`) がある |
 | `identity_not_last` | 回答者を特定する問いが最後ではない |
 | `purpose_missing` | 企画上の目的が空 |
+
+## 検証
+
+* サイト設定 option 保存: [`MaxQuestionsIntegrationTest.php`](../tests/Integration/MaxQuestionsIntegrationTest.php) (段階3b)
+* メタ REST 往復 (Gutenberg と同型の `show_in_rest`): [`PanelMetaRestIntegrationTest.php`](../tests/Integration/PanelMetaRestIntegrationTest.php)
+* GatherPress 上の Modal / i18n / 下書きエラー表示: [test-results.md §段階1](./test-results.md#第1段階-local-結合スモーク)
 
 ## 関連
 

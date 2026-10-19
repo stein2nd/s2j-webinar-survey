@@ -26,6 +26,18 @@ abstract class WP_UnitTestCase extends \PHPUnit\Framework\TestCase {
 	 */
 	protected $factory;
 
+	/**
+	 * WordPress test suite factory (static entry point used by integration tests).
+	 */
+	public static function factory(): WP_UnitTest_Factory {
+		static $factory = null;
+		if ( null === $factory ) {
+			$factory = new WP_UnitTest_Factory();
+		}
+
+		return $factory;
+	}
+
 	protected function setUp(): void {
 		parent::setUp();
 	}
@@ -58,6 +70,49 @@ abstract class WP_UnitTestCase extends \PHPUnit\Framework\TestCase {
  * WordPress test factory (stub).
  */
 class WP_UnitTest_Factory {
+
+	/**
+	 * @var WP_UnitTest_Factory_For_Users
+	 */
+	public $user;
+
+	/**
+	 * @var WP_UnitTest_Factory_For_Posts
+	 */
+	public $post;
+
+	public function __construct() {
+		$this->user = new WP_UnitTest_Factory_For_Users();
+		$this->post = new WP_UnitTest_Factory_For_Posts();
+	}
+}
+
+/**
+ * @internal Stub for IDE only.
+ */
+class WP_UnitTest_Factory_For_Users {
+
+	/**
+	 * @param array<string, mixed> $args User args.
+	 */
+	public function create( array $args = array() ): int {
+		unset( $args );
+		return 0;
+	}
+}
+
+/**
+ * @internal Stub for IDE only.
+ */
+class WP_UnitTest_Factory_For_Posts {
+
+	/**
+	 * @param array<string, mixed> $args Post args.
+	 */
+	public function create( array $args = array() ): int {
+		unset( $args );
+		return 0;
+	}
 }
 
 /**

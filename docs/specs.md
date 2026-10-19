@@ -41,7 +41,7 @@
 3. [admin_ui_spec.md](./admin_ui_spec.md)
 4. [draft_ui_spec.md](./draft_ui_spec.md)
 5. [persistence_spec.md](./persistence_spec.md)
-6. [status.md](./status.md)
+6. [status.md](./status.md) / [test-results.md](./test-results.md)
 7. [governance/documentation_governance.md](./governance/documentation_governance.md)
 
 #### サービス側の実装者
@@ -75,6 +75,7 @@
 | ドキュメント | 内容 |
 | --- | --- |
 | [実装状況](./status.md) | 機能単位の進捗 |
+| [テスト戦略と結果](./test-results.md) | 段階1–3、Local / 外部結合の記録 |
 | [ドキュメンテーション・ガバナンス](./governance/documentation_governance.md) | SoT、用語、lint、`docs_mod` → `docs`、archive |
 | [archive 索引](./archive/README.md) | 完了イニシアチブの凍結一覧 |
 

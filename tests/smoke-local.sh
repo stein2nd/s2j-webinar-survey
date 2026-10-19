@@ -48,13 +48,25 @@ if ( ! defined( 'S2J_WEBINAR_SURVEY_REST_NAMESPACE' ) ) {
 if ( ! function_exists( 'S2J\\\\WebinarSurveyService\\\\evaluate' ) ) {
 	exit( 2 );
 }
-do_action( 'rest_api_init' );
-\$route = '/s2j-webinar-survey/v1/evaluate';
-\$routes = rest_get_server()->get_routes();
-if ( ! isset( \$routes[ \$route ] ) ) {
+if ( ! class_exists( 'S2J\\\\WebinarSurvey\\\\ServiceBridge' ) ) {
 	exit( 3 );
+}
+\$doc = array(
+	'internal_name' => '',
+	'questions'     => array(),
+);
+\$result = S2J\\\\WebinarSurvey\\\\ServiceBridge::evaluate( \$doc, 6 );
+if ( ! is_array( \$result ) || ! isset( \$result['document'], \$result['deficiencies'], \$result['advice'] ) ) {
+	exit( 4 );
+}
+do_action( 'rest_api_init' );
+\$routes = rest_get_server()->get_routes();
+foreach ( array( '/s2j-webinar-survey/v1/evaluate', '/s2j-webinar-survey/v1/draft' ) as \$route ) {
+	if ( ! isset( \$routes[ \$route ] ) ) {
+		exit( 5 );
+	}
 }
 echo 'ok';
 "
 
-echo "PASS: ${PLUGIN_SLUG} active; Service evaluate and REST route present."
+echo "PASS: ${PLUGIN_SLUG} active; Service evaluate(), evaluate+draft REST routes present."

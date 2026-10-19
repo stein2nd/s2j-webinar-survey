@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-17T23:49:07+00:00\n"
+"POT-Creation-Date: 2026-10-19T03:34:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: s2j-webinar-survey\n"
@@ -63,7 +63,7 @@ msgid "Allowed range: 1–15. Empty uses 6 when evaluating."
 msgstr ""
 
 #: includes/AiTextGeneration.php:24
-#: includes/Rest/DraftController.php:92
+#: includes/Rest/DraftController.php:160
 msgid "AI connector is not available."
 msgstr ""
 
@@ -100,13 +100,13 @@ msgstr ""
 msgid "Survey service is not available."
 msgstr ""
 
-#: includes/Rest/DraftController.php:101
+#: includes/Rest/DraftController.php:93
 #: includes/Rest/EvaluateController.php:81
 msgid "Invalid document."
 msgstr ""
 
-#: includes/Rest/DraftController.php:132
-#: includes/Rest/DraftController.php:166
+#: includes/Rest/DraftController.php:124
+#: includes/Rest/DraftController.php:183
 #: dist/js/s2j-webinar-survey-gutenberg.js:1
 msgid "Draft request failed."
 msgstr ""

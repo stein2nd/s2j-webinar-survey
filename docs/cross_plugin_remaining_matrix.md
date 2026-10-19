@@ -22,7 +22,7 @@
 
 | リポジトリ | Local | Webinar 実装待ち | HTTPS + Zoom | 備考 |
 | --- | ---: | ---: | ---: | --- |
-| [S2J Webinar Survey](#s2j-webinar-survey) | 9 | 0 | 0 (+ E3/E4 ゲート) | Zoom 非接触は Local 検証 |
+| [S2J Webinar Survey](#s2j-webinar-survey) | 0 | 0 | 0 (+ E3/E4 ゲート) | Local 未完了 9 件 **2026-10-19** 完了 (wp-env 分母外) |
 | [S2J Webinar](#s2j-webinar) | 2 | 1 | 1 (+ E1–E4 ゲート) | P2a + **E7** **2026-10-19**。P3 は v0.0.2 対象外 |
 | [S2J Webinar Source QR](#s2j-webinar-source-qr) | 多数 | 少数 | E3 等 | **E2/E5** Pass **2026-10-19** — 詳細は各 repo 正本 |
 
@@ -32,18 +32,14 @@
 
 正本: [status.md §100%](./status.md#100-完了条件チェックリスト) / [test-results.md](./test-results.md)
 
-| § | 未完了 `[ ]` | Local | Webinar 実装待ち | HTTPS + Zoom |
-| --- | --- | :---: | :---: | :---: |
-| 仕様 | CI: `docs-lint` | ● | | |
-| Composer | Service 橋渡し smoke (段階1 WP-CLI) | ● | | |
-| 設定 | Test: option 保存 | ● | | |
-| 管理 UI | Smoke: REST / Fill (`smoke-local.sh`) | ● | | |
-| 管理 UI | wp-env — メタ REST 往復 | ● | | 任意 |
-| 永続化 | Test: wp-env 統合 (任意) | ● | | |
-| 下書き UI | コネクタモック / E2E 採用フロー | ● | | 実 LLM は Local 可 |
-| 品質 | `.wp-env.json` + wp-env PHPUnit (任意) | ● | | |
-| 品質 | 段階3b — wp-env green | ● | | |
-| アンインストール | Zoom 非接触 (アンインストールで Zoom 側を触らない) | ● | | |
+**Local 未完了 `[ ]`:** なし (**2026-10-19**)。メタ REST / 3b は `npm run test:unit:php:local` (MySQL) を正本とし、wp-env は採用しない。
+
+| § | 備考 (完了) |
+| --- | --- |
+| 仕様 | `docs-lint` CI |
+| Composer | `smoke-local.sh` — evaluate + REST ルート |
+| 設定 / 永続化 / 下書き / アンインストール | Integration 9 本 + unit 6 |
+| 品質 | 3a CI + 3b local + `lint:php` + test-results |
 
 ### ゲートのみ (チェックリスト `[ ]` ではない)
 
@@ -121,7 +117,7 @@
 ## 推奨の進め方 (依存順)
 
 1. **Local 自動** — 各 repo [status §推奨テスト実施順](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-test-order) 順0–2 (Survey: smoke / option テスト等を追加)。
-2. ~~**Local 連携 (P2a / E7 / E2 / Save draft)**~~ — **2026-10-19** Pass（Studio `:8888` post **8**、stub 無効）。
+2. ~~**Local 連携 (P2a / E7 / E2 / Save draft)**~~ — **2026-10-19** Pass (Studio `:8888` post **8**、stub 無効)。
 3. **Webinar P1 / Source QR sanitize・UI 残** — Local のみ。
 4. **HTTPS ステージング** — Webinar **E1 → E2 → E3**、続けて Survey **E3/E4**、Source QR **E3** (Import)。
 

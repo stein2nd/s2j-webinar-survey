@@ -112,6 +112,8 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 | 無効化 | 残す | 残す | 変更しない |
 | アンインストール | 消す | 消す | 変更しない |
 
+**検証:** Zoom API を呼ばないことは [`UninstallBehaviorIntegrationTest.php`](../tests/Integration/UninstallBehaviorIntegrationTest.php) で `uninstall.php` の DB 操作のみを確認する。メタ REST (`show_in_rest` + コア REST 更新) は [`PanelMetaRestIntegrationTest.php`](../tests/Integration/PanelMetaRestIntegrationTest.php) (テスト用 `post`。本番のイベント CPT も同登録パターン)。表示専用 evaluate は [`EvaluateControllerIntegrationTest.php`](../tests/Integration/EvaluateControllerIntegrationTest.php)。記録は [test-results.md](./test-results.md)。
+
 ## S2J Webinar との受け渡し
 
 * `ready` の文書は上記メタ (`_s2j_webinar_survey`) にある。

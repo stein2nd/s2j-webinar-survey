@@ -50,6 +50,7 @@
         "test:smoke:local": "bash tests/smoke-local.sh",
         "test:unit:php:unit-only": "composer test:unit",
         "test:unit:php:local": "bash bin/phpunit-local.sh",
+        "test:quality:local": "npm run test:unit:php:unit-only && npm run lint:php && npm run test:unit:php:local",
         "phpunit": "composer test:all",
         "dist:build": "composer install --no-dev --optimize-autoloader --no-interaction && npm run build:production",
         "dist:zip": "node tools/dist/make-dist-zip.mjs",

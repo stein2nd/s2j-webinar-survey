@@ -14,7 +14,7 @@
 | 層 | 責務 | 非責務 |
 | --- | --- | --- |
 | UI (React / パネル) | 入力、不足と助言のメッセージ表示、下書き候補の採用 UI | 不足判定の本体。Service の直接呼び出し |
-| Plugin PHP | フック、メタ、option、サービス呼び出し (`evaluate` / 下書き bridge。REST 等)、コネクタ | Zoom HTTP |
+| Plugin PHP | フック、メタ、option、サービス呼び出し (`evaluate` / 下書き bridge。REST 等)、コネクタ、下書きテスト用 filter `s2j_webinar_survey_draft_ai_text` | Zoom HTTP |
 | Survey Service | `evaluate` / `build_draft_prompt` / `parse_draft_response` | WP / Zoom |
 
 `evaluate` (表示専用含む) も下書きも、**UI → 本プラグイン PHP (REST 等) → Service** とする。クライアントから Service を直接呼ばない。表示専用は `POST …/v1/evaluate` (初版出力はコード列のみ)、下書きは `POST …/v1/draft` (1リクエスト)。契約の正本は [persistence_spec.md](./persistence_spec.md) / [draft_ui_spec.md](./draft_ui_spec.md)。パネル文書は `_s2j_webinar_survey` を `register_post_meta` (`object` / `show_in_rest` / `edit_post` 相当の auth) で載せ、保存は `save_post` で正規化上書きする (クライアントの `status` は信頼しない)。
@@ -50,6 +50,13 @@ s2j-webinar-survey/
 ├── src/
 │   ├── domain/                # document、question、evaluationMessages
 │   └── gutenberg/             # Document Settings、Modal、CRUD、meta sync
+├── tests/
+│   ├── Unit/                  # 段階3a (WP 不要)
+│   ├── Integration/           # 段階3b (MySQL + WP テスト lib)
+│   ├── smoke-local.sh         # 段階1 (WP-CLI)
+│   └── stubs/                 # IDE / Intelephense 用 (実行時は WP テスト lib)
+├── bin/                       # phpunit-local.sh、install-wp-tests.sh
+├── studio/                    # 段階2 Blueprint
 ├── languages/
 └── vendor/                    # Composer (配布物では同梱方針に従う)
 ```
@@ -63,6 +70,22 @@ s2j-webinar-survey/
 | 依存ライブラリ | `s2j/webinar-survey-service` |
 | 下書き | `wp_ai_client_prompt()` (コネクタ)。キーは持たない |
 | ドキュメント lint | `@s2j/docs-linter` / `npm run lint:docs` |
+| PHP 自動テスト | PHPUnit 9。wp-env / Docker は **採用しない** (MLDC / S2J Webinar 3b 同型) |
+
+## 検証 (段階1–3)
+
+正本: [test-results.md](./test-results.md) / 進捗 [status.md §品質](./status.md#status-quality)。
+
+| 段階 | npm / スクリプト | 内容 |
+| --- | --- | --- |
+| **1** | `npm run test:smoke:local` | `tests/smoke-local.sh` — 有効化、`ServiceBridge::evaluate`、evaluate / draft REST ルート |
+| **2** | `studio/smoke-test-blueprint.json` | GatherPress 同梱サイト + 段階1 |
+| **3a** | `npm run test:unit:php:unit-only` | `tests/Unit/` (CI: `.github/workflows/phpunit.yml`) |
+| **3b** | `npm run test:unit:php:local` | unit + `tests/Integration/` (MySQL、`.env.tests`) |
+| **lint** | `npm run lint:php` / `npm run lint:docs` | PHPStan + PHPCS、textlint (`docs-lint.yml`) |
+| **一括 (Local)** | `npm run test:quality:local` | 3a → lint:php → 3b |
+
+統合テストの代表: evaluate / draft ルート、option、メタ REST、filter モック draft、Zoom 非接触 uninstall (`uninstall.php`)。
 
 ## プラグインとの境界 (外)
 

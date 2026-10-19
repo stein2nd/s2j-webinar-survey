@@ -86,14 +86,6 @@ final class DraftController
             );
         }
 
-        if (! AiTextGeneration::is_available()) {
-            return new WP_Error(
-                's2j_webinar_survey_ai_unavailable',
-                __('AI connector is not available.', 's2j-webinar-survey'),
-                array( 'status' => 503 )
-            );
-        }
-
         $document = $request->get_param('document');
         if (! is_array($document)) {
             return new WP_Error(
@@ -143,13 +135,38 @@ final class DraftController
             );
         }
 
-        $ai_text = AiTextGeneration::generate($built['prompt_text']);
-        if (is_wp_error($ai_text)) {
-            return $ai_text;
-        }
-
         $parse_context = $context;
         $parse_context['requested_count'] = $built['requested_count'];
+
+        /** @var null|string|WP_Error $filtered_ai */
+        $filtered_ai = apply_filters(
+            's2j_webinar_survey_draft_ai_text',
+            null,
+            $built['prompt_text'],
+            $kind,
+            $parse_context
+        );
+
+        if ($filtered_ai instanceof WP_Error) {
+            return $filtered_ai;
+        }
+
+        if (is_string($filtered_ai)) {
+            $ai_text = $filtered_ai;
+        } else {
+            if (! AiTextGeneration::is_available()) {
+                return new WP_Error(
+                    's2j_webinar_survey_ai_unavailable',
+                    __('AI connector is not available.', 's2j-webinar-survey'),
+                    array( 'status' => 503 )
+                );
+            }
+
+            $ai_text = AiTextGeneration::generate($built['prompt_text']);
+            if (is_wp_error($ai_text)) {
+                return $ai_text;
+            }
+        }
 
         try {
             $candidates = ServiceBridge::parse_draft_response($kind, $ai_text, $parse_context);

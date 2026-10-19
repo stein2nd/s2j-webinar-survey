@@ -2,6 +2,24 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-19
+
+### Changed
+
+* `DraftController` — `build_draft_prompt` 後に filter `s2j_webinar_survey_draft_ai_text` (`null` | 応答文字列 | `WP_Error`)。文字列時はコネクタを呼ばず `parse_draft_response` に。実コネクタは `AiTextGeneration::is_available()` をその時点で確認 (上限到達など prompt 空の成功応答は従来どおり)。
+
+### Added
+
+* `npm run test:quality:local` — `test:unit:php:unit-only` → `lint:php` → `test:unit:php:local`。
+* `tests/smoke-local.sh` — WP-CLI で `ServiceBridge::evaluate` と evaluate / draft REST ルート到達。
+* `tests/Integration/` — `MaxQuestionsIntegrationTest`、`PanelMetaRestIntegrationTest`、`DraftControllerMockIntegrationTest`、`UninstallBehaviorIntegrationTest`。`EvaluateControllerIntegrationTest` にコード列出力ケース。段階3b は integration **9** 本 (wp-env 非採用)。
+* `tests/stubs/wordpress-test-stubs.php` — `WP_UnitTestCase::factory()` 等 (Intelephense)。
+
+### Docs
+
+* `docs/status.md` — プラグイン検証可能項を Local 完了 (段階3b MySQL、`test:quality:local`)。`test-results.md` / `cross_plugin_remaining_matrix.md` (Webinar / Source QR 同期) を更新。
+* `docs/admin_ui_spec.md`、`draft_ui_spec.md`、`persistence_spec.md`、`architecture.md` 他 — 下書き filter とコネクタ UI (Draft タブ vs Questions)、検証段階を同期。`README.md` に Local 手順。
+
 ## 0.0.1 - 2026-10-18
 
 * Git: `.phpunit.result.cache` をバージョン管理から除外 (初期コミットで追跡されていたため `git rm --cached`。ローカル生成のみ)。

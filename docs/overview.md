@@ -54,3 +54,4 @@
 * 背景: [concept.md](./concept.md)
 * 統合見取り図: [plugin_spec.md](./plugin_spec.md)
 * 索引: [specs.md](./specs.md)
+* 検証: [test-results.md](./test-results.md) (段階1–3。wp-env 非採用、MySQL 統合 3b)

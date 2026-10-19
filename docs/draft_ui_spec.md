@@ -12,12 +12,16 @@
 
 ## コネクタ欠如時
 
-`wp_ai_client_prompt` がない、またはテキスト生成できるコネクタがない場合の挙動は、下記になります。
+**UI 判定 (`hasDraftConnector`):** `function_exists( 'wp_ai_client_prompt' )` のみ。テキスト生成プロバイダがサイトに設定済みかは見ない ([admin_ui_spec.md](./admin_ui_spec.md) の localize)。
 
-* **初版の正:** 下書きボタンを出さない。
-* 「設定 > コネクタ」への案内を出す。
-* 検査と保存は、そのまま動く。
-* 防衛: 下書き REST が呼ばれた場合は適切な失敗メッセージを返す (ボタン非表示が正。呼ばれた場合は保険)。
+| 置き場 | `hasDraftConnector` が false | true だがテキスト生成コネクタ未設定 |
+| --- | --- | --- |
+| **Draft** タブ (`survey`) | survey 下書き UI を出さず **設定 > コネクタ** 案内 | ボタンは出る。REST が 503 等 + ユーザー向けメッセージ (例: `No connector supports text generation.` → JA「テキスト生成に対応しているコネクタはありません。」) |
+| **Questions** タブ (`prompt` / `choices`) | 設問別下書きボタン非表示 | ボタンは出る。失敗は REST 応答を設問行下に表示 |
+
+* 検査 (`evaluate`) とイベント保存は、いずれもそのまま動く。
+* 防衛: 下書き REST は `AiTextGeneration::is_available()` でコネクタ実体を確認し、不可なら適切な `WP_Error` を返す (メタは書かない)。
+* 初版の製品判断 (**2026-10-19** 手動確認): Draft タブだけ `hasDraftConnector` で隠し、Questions の per-field 下書きは API 存在時に表示して REST で案内する。
 
 ## ボタン
 
@@ -39,9 +43,10 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 
 1. `build_draft_prompt( $kind, $context )` → `{ prompt_text, requested_count }`
 2. `prompt_text` が空、または `requested_count` が0ならコネクタに送らず、下書き候補なしで返す (`survey` の上限到達など)
-3. `wp_ai_client_prompt( … )` を1回
-4. `parse_draft_response( $kind, $response, $context )` に、同じ `requested_count` と必要なら `document` / `focus_index` を渡す
-5. 下書き候補をレスポンスで UI に返す。パネル文書にもメタ文書にも書かない
+3. コネクタ呼び出し前に filter **`s2j_webinar_survey_draft_ai_text`** — `apply_filters( …, null, $prompt_text, $kind, $parse_context )`。コールバックは `( $filtered, string $prompt_text, string $kind, array $parse_context )` → `null` | 応答文字列 | `WP_Error`。文字列なら `wp_ai_client_prompt` を省略 (PHPUnit / Local 統合のモック用。本番は未登録のまま)。
+4. 上記が null のとき `wp_ai_client_prompt( … )` を1回 (`AiTextGeneration::generate`)
+5. `parse_draft_response( $kind, $response, $context )` に、同じ `requested_count` と必要なら `document` / `focus_index` を渡す
+6. 下書き候補をレスポンスで UI に返す。パネル文書にもメタ文書にも書かない
 
 ### 下書き REST 最小契約
 
@@ -55,6 +60,7 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 | 出力 | JSON キー **`candidates`**: 下書き候補の配列 (kind に応じた形)。送らなかった場合は空配列。**メタは書かない** |
 | コネクタ欠如 | **初版の正はボタン非表示** (案内は上記)。呼ばれた場合は防衛的に適切な失敗メッセージ |
 | 失敗 | 権限不足、不正入力、Service 例外はログし、ユーザー向けは簡潔な失敗メッセージ。コネクタ失敗は再試行を促す。パネル文書は変えない |
+| テスト用 filter | **`s2j_webinar_survey_draft_ai_text`** — 上記手順3。実 LLM なしで `candidates` まで通す ([`DraftControllerMockIntegrationTest.php`](../tests/Integration/DraftControllerMockIntegrationTest.php)) |
 
 ## 下書き候補の見せ方と採用
 
@@ -88,9 +94,15 @@ UI は下書き REST を1回呼ぶ。PHP 側で下記を順に実行する (ク�
 | 要素 | 場所 |
 | --- | --- |
 | REST | `includes/Rest/DraftController.php` |
+| テスト用 filter | 同上 (`s2j_webinar_survey_draft_ai_text`) |
 | コネクタ 1 回 | `includes/AiTextGeneration.php` (`wp_ai_client_prompt`) |
 | Service 橋 | `includes/ServiceBridge.php` (`build_draft_prompt` / `parse_draft_response`) |
 | クライアント | `src/gutenberg/draftApi.ts`、Questions / Draft タブ |
+
+## 検証
+
+* モック (filter): [test-results.md §3b](./test-results.md#第3段階-phpunit) — `npm run test:unit:php:local`
+* 実コネクタ / 採用 UI: 段階1手動 ([test-results.md §最新結果](./test-results.md#最新結果))
 
 ## 関連
 
