@@ -65,7 +65,7 @@ s2j-webinar-survey/
 
 | 項目 | 方針 |
 | --- | --- |
-| PHP | WordPress 要件に合わせる。サービスは PHP v8.1以上 |
+| PHP | 本プラグイン **v8.3以上** ([WordPress 必須要件](https://ja.wordpress.org/about/requirements/))。Composer 依存 `s2j/webinar-survey-service` は PHP v8.1以上 |
 | UI | React (Vite)。イベント編集パネル + サイト設定 |
 | 依存ライブラリ | `s2j/webinar-survey-service` |
 | 下書き | `wp_ai_client_prompt()` (コネクタ)。キーは持たない |
@@ -80,7 +80,7 @@ s2j-webinar-survey/
 | --- | --- | --- |
 | **1** | `npm run test:smoke:local` | `tests/smoke-local.sh` — 有効化、`ServiceBridge::evaluate`、evaluate / draft REST ルート |
 | **2** | `studio/smoke-test-blueprint.json` | GatherPress 同梱サイト + 段階1 |
-| **3a** | `npm run test:unit:php:unit-only` | `tests/Unit/` (CI: `.github/workflows/phpunit.yml`) |
+| **3a** | `npm run test:unit:php:unit-only` | `tests/Unit/` (CI: `.github/workflows/phpunit.yml`、PHP **v8.3**、wp-env なし) |
 | **3b** | `npm run test:unit:php:local` | unit + `tests/Integration/` (MySQL、`.env.tests`) |
 | **lint** | `npm run lint:php` / `npm run lint:docs` | PHPStan + PHPCS、textlint (`docs-lint.yml`) |
 | **一括 (Local)** | `npm run test:quality:local` | 3a → lint:php → 3b |

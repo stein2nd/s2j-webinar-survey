@@ -4,6 +4,8 @@ GatherPress のイベント編集画面で、ウェビナー後アンケート�
 
 計算は Composer ライブラリ [s2j/webinar-survey-service](https://github.com/stein2nd/s2j-webinar-survey-service) に委譲します。Zoom への添付は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) です。
 
+**要件:** PHP **v8.3以上** ([WordPress 必須要件](https://ja.wordpress.org/about/requirements/))。
+
 ## 仕様
 
 * 索引: [docs/specs.md](./docs/specs.md)

@@ -74,7 +74,7 @@ npm run test:smoke:local
 
 ### 3a. ユニットのみ (PHP + Composer、CI もここ)
 
-WordPress / MySQL 不要。
+WordPress / MySQL 不要。GitHub Actions (`.github/workflows/phpunit.yml`) は PHP **v8.3**、`npm run test:unit:php:unit-only` のみ (wp-env / `phpunit:wp-env` は使わない)。
 
 ```bash
 npm run test:unit:php:unit-only

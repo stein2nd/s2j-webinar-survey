@@ -22,6 +22,7 @@
 | スラッグ | `s2j-webinar-survey` |
 | テキストドメイン | `s2j-webinar-survey` |
 | ライセンス | GPL-3.0-or-later |
+| PHP | **v8.3以上** (WordPress 必須要件に合わせる) |
 | Composer 依存 | `s2j/webinar-survey-service` (Packagist の名前のみ) |
 
 ## 提供機能

@@ -2,6 +2,22 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-24
+
+### Changed
+
+* 実行要件 PHP **v8.3以上** — [WordPress 必須要件](https://ja.wordpress.org/about/requirements/) に合わせる (`s2j-webinar-survey.php` の `Requires PHP`、`composer.json` / `composer.lock`、`platform` v8.3)。
+* CI — `.github/workflows/phpunit.yml` / `dist-zip.yml` / `docs-lint.yml` を PHP **v8.3**。PHPUnit は `npm run test:unit:php:unit-only` のみ (wp-env および未定義の `phpunit:wp-env` は使わない)。docs-lint は `composer validate --strict` で下限を検証。
+* `studio/smoke-test-blueprint.json` — PHP v8.3。
+
+### Docs
+
+* `docs/overview.md`、`architecture.md`、`test-results.md`、`plugin_spec.md`、`README.md` — 実行要件 **v8.3以上** を記載。
+
+### Chore
+
+* npm 開発依存を更新 (`@wordpress/*` メジャー追従、`@s2j/docs-linter` ^1.0.30、Rollup ^4.65.0)。`package-lock.json` 再生成。
+
 ## 0.0.1 - 2026-10-19
 
 ### Changed
