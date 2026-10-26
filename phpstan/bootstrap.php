@@ -17,3 +17,7 @@ if (! defined('S2J_WEBINAR_SURVEY_PLUGIN_URL')) {
 if (! defined('S2J_WEBINAR_SURVEY_PLUGIN_BASENAME')) {
     define('S2J_WEBINAR_SURVEY_PLUGIN_BASENAME', 's2j-webinar-survey/s2j-webinar-survey.php');
 }
+
+if (! defined('ABSPATH')) {
+    define('ABSPATH', __DIR__ . '/stubs/wordpress-root/');
+}

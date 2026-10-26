@@ -2,11 +2,14 @@ import { Button, Notice, PanelRow } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
-import { useMemo, useState } from '@wordpress/element';
+import { useCallback, useMemo, useState } from '@wordpress/element';
 import { normalizeDocument, type SurveyDocument } from '@/domain/document';
 import { getSurveyEditorConfig } from '@/gutenberg/config';
 import { SurveyEditorModal } from '@/gutenberg/SurveyEditorModal';
 import { useSurveyMetaSync } from '@/gutenberg/useSurveyMetaSync';
+import { WebinarDependencyNotice } from '@/gutenberg/WebinarDependencyNotice';
+
+const EDITOR_STORE = 'core/editor';
 
 function statusBadgeLabel(status: string | undefined): string {
 	if (status === 'ready') {
@@ -36,11 +39,18 @@ function DocumentPanelFieldsInner({
 
 	const document = useMemo(() => normalizeDocument(metaRaw), [metaRaw]);
 
+	const setMeta = useCallback(
+		(value: unknown) => {
+			setMetaRaw(value);
+		},
+		[setMetaRaw],
+	);
+
 	const { isDirty, savedDocument } = useSurveyMetaSync(
 		postId,
 		postType,
 		metaRaw,
-		setMetaRaw,
+		setMeta,
 	);
 
 	const setDocument = (next: SurveyDocument) => {
@@ -93,12 +103,12 @@ function DocumentPanelFieldsInner({
 
 export function DocumentPanelFields() {
 	const postId = useSelect((select) => {
-		const editor = select('core/editor') as { getCurrentPostId?: () => number };
+		const editor = select(EDITOR_STORE) as { getCurrentPostId?: () => number };
 		return editor.getCurrentPostId?.() ?? 0;
 	}, []);
 
 	const postType = useSelect((select) => {
-		const editor = select('core/editor') as { getCurrentPostType?: () => string };
+		const editor = select(EDITOR_STORE) as { getCurrentPostType?: () => string };
 		return editor.getCurrentPostType?.() ?? '';
 	}, []);
 
@@ -110,6 +120,11 @@ export function DocumentPanelFields() {
 				</p>
 			</PanelRow>
 		);
+	}
+
+	const webinarConfig = getSurveyEditorConfig();
+	if (!webinarConfig.s2jWebinarActive) {
+		return <WebinarDependencyNotice />;
 	}
 
 	return <DocumentPanelFieldsInner postId={postId} postType={postType} />;

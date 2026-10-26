@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-19T03:34:16+00:00\n"
+"POT-Creation-Date: 2026-10-26T12:43:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: s2j-webinar-survey\n"
@@ -379,6 +379,22 @@ msgstr ""
 
 #: dist/js/s2j-webinar-survey-gutenberg.js:1
 msgid "Update"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Install S2J Webinar to attach surveys to webinars."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Installation guide"
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Enable S2J Webinar to attach surveys to webinars."
+msgstr ""
+
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
+msgid "Activate S2J Webinar"
 msgstr ""
 
 #: dist/js/s2j-webinar-survey-gutenberg.js:1

@@ -2,6 +2,14 @@
 
 GatherPress のイベント編集画面で、ウェビナー後アンケートの設問を書き、助言を見る WordPress プラグインです (プラグイン一覧名: S2J Webinar Survey)。
 
+## Installation {#installation}
+
+1. **[S2J Webinar](https://github.com/stein2nd/s2j-webinar#installation)** をインストールし **有効化** します (ready 文書の Zoom 添付は Webinar 経由です)。
+2. [GatherPress](https://github.com/stein2nd/gatherpress) を有効化します。
+3. 本プラグインを `wp-content/plugins/s2j-webinar-survey/` に配置し、**Plugins** 画面で有効化します。
+
+Webinar が未インストール / 無効のとき、イベント編集の **Document Settings** に案内 Notice が表示されます (wp.org 掲載後は Add New からの導入も想定)。
+
 計算は Composer ライブラリ [s2j/webinar-survey-service](https://github.com/stein2nd/s2j-webinar-survey-service) に委譲します。Zoom への添付は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) です。
 
 **要件:** PHP **v8.3以上** ([WordPress 必須要件](https://ja.wordpress.org/about/requirements/))。

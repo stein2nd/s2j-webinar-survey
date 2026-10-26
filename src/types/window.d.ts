@@ -8,6 +8,10 @@ declare global {
 			hasDraftConnector?: boolean;
 			connectorsSettingsUrl?: string;
 			maxQuestions?: number;
+			s2jWebinarInstalled?: boolean;
+			s2jWebinarActive?: boolean;
+			webinarInstallGuideUrl?: string;
+			webinarActivateUrl?: string;
 		};
 	}
 }

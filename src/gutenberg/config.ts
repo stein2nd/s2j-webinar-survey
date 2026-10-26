@@ -4,6 +4,10 @@ export type SurveyEditorConfig = {
 	hasDraftConnector: boolean;
 	connectorsSettingsUrl: string;
 	maxQuestions: number;
+	s2jWebinarInstalled: boolean;
+	s2jWebinarActive: boolean;
+	webinarInstallGuideUrl: string;
+	webinarActivateUrl: string;
 };
 
 export function getSurveyEditorConfig(): SurveyEditorConfig {
@@ -18,5 +22,9 @@ export function getSurveyEditorConfig(): SurveyEditorConfig {
 		connectorsSettingsUrl:
 			fromWindow?.connectorsSettingsUrl ?? '/wp-admin/options-general.php',
 		maxQuestions,
+		s2jWebinarInstalled: Boolean(fromWindow?.s2jWebinarInstalled),
+		s2jWebinarActive: Boolean(fromWindow?.s2jWebinarActive),
+		webinarInstallGuideUrl: fromWindow?.webinarInstallGuideUrl ?? '',
+		webinarActivateUrl: fromWindow?.webinarActivateUrl ?? '',
 	};
 }

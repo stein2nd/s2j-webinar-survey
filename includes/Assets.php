@@ -80,6 +80,10 @@ final class Assets
                 'hasDraftConnector'     => function_exists('wp_ai_client_prompt'),
                 'connectorsSettingsUrl' => admin_url('options-connectors.php'),
                 'maxQuestions'          => MaxQuestions::for_service(),
+                's2jWebinarInstalled'   => WebinarDependency::is_installed(),
+                's2jWebinarActive'      => WebinarDependency::is_active(),
+                'webinarInstallGuideUrl' => WebinarDependency::install_guide_url(),
+                'webinarActivateUrl'    => WebinarDependency::activate_url(),
             )
         );
     }

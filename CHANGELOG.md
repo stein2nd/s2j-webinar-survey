@@ -2,6 +2,24 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-26
+
+### Added
+
+* **S2J Webinar 依存** — [`WebinarDependency.php`](./includes/WebinarDependency.php) (インストール / 有効化判定、案内 URL)。Gutenberg [`WebinarDependencyNotice`](./src/gutenberg/WebinarDependencyNotice.tsx)。Webinar 未有効時は Document Settings で Modal を出さず Notice のみ ([`DocumentPanelFields.tsx`](./src/gutenberg/DocumentPanelFields.tsx))。
+* `s2jWebinarSurvey` localize — `s2jWebinarInstalled` / `s2jWebinarActive` / `webinarInstallGuideUrl` / `webinarActivateUrl` ([`Assets.php`](./includes/Assets.php))。
+* `README.md` — **Installation** (Webinar → GatherPress → 本プラグイン)。
+
+### Fixed
+
+* Gutenberg — Document Settings の editor store 参照を `core/editor` 定数に統一 (postId / postType ガードは維持)。
+* Gutenberg — `useEntityProp` の setter を `useSurveyMetaSync` 向けに `useCallback` で型合わせ。`config.ts` / import の重複キー・重複 import を除去。
+
+### Chore
+
+* 開発依存 — `@wordpress/core-data` (型解決)。`package.json` / `package-lock.json` 更新。
+* PHPStan — `ABSPATH` と `wp-admin/includes/plugin.php` スタブ ([`phpstan/bootstrap.php`](./phpstan/bootstrap.php)、[`phpstan/stubs/`](./phpstan/stubs/))。`npm run lint:php` green。
+
 ## 0.0.1 - 2026-10-24
 
 ### Changed

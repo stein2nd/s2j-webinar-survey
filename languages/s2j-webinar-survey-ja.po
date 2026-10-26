@@ -1,23 +1,21 @@
-# Copyright (C) 2026 Koutarou ISHIKAWA
-# This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: S2J Webinar Survey 0.0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-webinar-"
-"survey\n"
-"POT-Creation-Date: 2026-10-19T03:34:16+00:00\n"
-"PO-Revision-Date: 2026-10-19 12:36+0900\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-webinar-survey\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-26T12:43:53+00:00\n"
+"PO-Revision-Date: 2026-10-26 21:50+0900\n"
+"Language: ja\n"
 "X-Generator: Poedit 3.10\n"
 "X-Domain: s2j-webinar-survey\n"
 
 #. Plugin Name of the plugin
-#: s2j-webinar-survey.php dist/js/s2j-webinar-survey-gutenberg.js:1
+#: s2j-webinar-survey.php
+#: dist/js/s2j-webinar-survey-gutenberg.js:1
 msgid "S2J Webinar Survey"
 msgstr "S2J Webinar Survey"
 
@@ -28,12 +26,8 @@ msgstr "https://github.com/stein2nd/s2j-webinar-survey"
 
 #. Description of the plugin
 #: s2j-webinar-survey.php
-msgid ""
-"Write post-webinar survey questions and view design advice from the "
-"GatherPress event editor."
-msgstr ""
-"ウェビナー終了後のアンケートの質問を作成し、GatherPress のイベントエディタか"
-"ら設計に関するアドバイスを確認できます。"
+msgid "Write post-webinar survey questions and view design advice from the GatherPress event editor."
+msgstr "ウェビナー終了後のアンケートの質問を作成し、GatherPress のイベントエディタから設計に関するアドバイスを確認できます。"
 
 #. Author of the plugin
 #: s2j-webinar-survey.php
@@ -45,7 +39,8 @@ msgstr "Koutarou ISHIKAWA"
 msgid "https://stein2nd.wordpress.com"
 msgstr "https://stein2nd.wordpress.com"
 
-#: includes/Admin/SettingsPage.php:21 includes/Admin/SettingsPage.php:22
+#: includes/Admin/SettingsPage.php:21
+#: includes/Admin/SettingsPage.php:22
 #: includes/Admin/SettingsPage.php:85
 msgid "S2J Webinar Survey Questions"
 msgstr "S2J Webinar Survey Questions"
@@ -66,7 +61,8 @@ msgstr "質問の最大数"
 msgid "Allowed range: 1–15. Empty uses 6 when evaluating."
 msgstr "許容範囲: 1～15。評価時には、空の場合でも、6が使用されます。"
 
-#: includes/AiTextGeneration.php:24 includes/Rest/DraftController.php:160
+#: includes/AiTextGeneration.php:24
+#: includes/Rest/DraftController.php:160
 msgid "AI connector is not available."
 msgstr "AI コネクタは利用できません。"
 
@@ -78,31 +74,38 @@ msgstr "AI が無効になっています。「設定 → コネクタ」を確�
 msgid "No connector supports text generation."
 msgstr "テキスト生成に対応しているコネクタはありません。"
 
-#: includes/AiTextGeneration.php:64 includes/AiTextGeneration.php:74
+#: includes/AiTextGeneration.php:64
+#: includes/AiTextGeneration.php:74
 msgid "AI request failed. Try again."
 msgstr "AI リクエストが失敗しました。もう一度お試しください。"
 
-#: includes/AiTextGeneration.php:82 includes/AiTextGeneration.php:90
+#: includes/AiTextGeneration.php:82
+#: includes/AiTextGeneration.php:90
 msgid "AI returned an unexpected response."
 msgstr "AI が予期せぬレスポンスを返しました。"
 
-#: includes/Rest/DraftController.php:63 includes/Rest/EvaluateController.php:51
+#: includes/Rest/DraftController.php:63
+#: includes/Rest/EvaluateController.php:51
 msgid "Invalid event_id."
 msgstr "不正な event_id です。"
 
-#: includes/Rest/DraftController.php:71 includes/Rest/EvaluateController.php:59
+#: includes/Rest/DraftController.php:71
+#: includes/Rest/EvaluateController.php:59
 msgid "Sorry, you are not allowed to edit this event."
 msgstr "申し訳ありませんが、このイベントを編集することは許可されていません。"
 
-#: includes/Rest/DraftController.php:84 includes/Rest/EvaluateController.php:72
+#: includes/Rest/DraftController.php:84
+#: includes/Rest/EvaluateController.php:72
 msgid "Survey service is not available."
 msgstr "アンケートサービスは、利用できません。"
 
-#: includes/Rest/DraftController.php:93 includes/Rest/EvaluateController.php:81
+#: includes/Rest/DraftController.php:93
+#: includes/Rest/EvaluateController.php:81
 msgid "Invalid document."
 msgstr "不正なドキュメントです。"
 
-#: includes/Rest/DraftController.php:124 includes/Rest/DraftController.php:183
+#: includes/Rest/DraftController.php:124
+#: includes/Rest/DraftController.php:183
 #: dist/js/s2j-webinar-survey-gutenberg.js:1
 msgid "Draft request failed."
 msgstr "下書きリクエストが失敗しました。"
@@ -113,338 +116,7 @@ msgstr "評価が失敗しました。"
 
 #: s2j-webinar-survey.php:41
 msgid "S2J Webinar Survey: run composer install in the plugin directory."
-msgstr ""
-"S2J Webinar Survey: プラグインディレクトリで「composer install」を実行してく"
-"ださい。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Internal name is empty."
-msgstr "内部名は空です。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Add at least one question."
-msgstr "少なくとも1つの質問を追加してください。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "A question prompt is empty."
-msgstr "質問プロンプトが空白です。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "A question has an invalid answer type."
-msgstr "この質問には、不正な回答形式が指定されています。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"A single- or multiple-choice question needs at least two non-empty choices."
-msgstr ""
-"単一選択または複数選択の質問には、少なくとも2つの空欄でない選択肢が必要です。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Choices were provided for a question type that does not use them."
-msgstr ""
-"「どの選択肢も当てはまらない」という質問形式に対して、選択肢が提示されまし"
-"た。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "A rating scale has invalid bounds or labels."
-msgstr "評価尺度の範囲またはラベルが不正です。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Question count exceeds the site limit (advice only; you can still save)."
-msgstr "質問数がサイトの制限を超えています (アドバイスのみ; 保存は可能)。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Place free-text questions after closed-ended ones."
-msgstr "選択式の質問の後に、自由記述式の質問を配置しましょう。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "A required free-text question may reduce completion."
-msgstr "必須の自由記述式の質問は、回答率を低下させる可能性があります。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Place the respondent-identifying question last."
-msgstr "回答者を特定する質問は、最後に配置しましょう。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Add a planning purpose for a question (not shown to respondents)."
-msgstr "質問に、計画上の目的を追加します (回答者には非表示)。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Unresolved deficiency: %s"
-msgstr "未解決の不備: %s"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Unresolved advice: %s"
-msgstr "未解決のアドバイス: %s"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Deficiencies"
-msgstr "不備"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "None"
-msgstr "なし"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Advice"
-msgstr "アドバイス"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Single choice"
-msgstr "単一選択肢"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Multiple choice"
-msgstr "複数選択肢"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Short text"
-msgstr "短い文章"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Long text"
-msgstr "長文"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Rating scale"
-msgstr "評価尺度"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Site question limit applies on save (not shown here)."
-msgstr "サイトの質問数制限は、保存時に適用されます (ここでは非表示)。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "No questions yet."
-msgstr "まだ質問はありません。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Up"
-msgstr "上げる"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Down"
-msgstr "下げる"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Remove"
-msgstr "削除"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Prompt (shown to respondents)"
-msgstr "設問 (回答者に表示)"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Draft this prompt"
-msgstr "この設問を下書きする"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Answer type"
-msgstr "回答形式"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Required"
-msgstr "必須"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Identifies the respondent"
-msgstr "回答者を特定する"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Planning purpose (not shown to respondents)"
-msgstr "計画の目的 (回答者には非表示)"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Choices"
-msgstr "選択肢"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Choice"
-msgstr "選択肢"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Remove choice"
-msgstr "選択肢を削除"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Single- and multiple-choice questions need at least two choices. Use Add "
-"choice before removing one."
-msgstr ""
-"単一選択肢および複数選択肢の質問には、少なくとも2つの選択肢が必要です。選択肢"
-"を削除する前に、「選択肢を追加」を使用しましょう。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Add choice"
-msgstr "選択肢を追加"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Draft choices"
-msgstr "選択肢を下書き"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Score minimum"
-msgstr "最低評価"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Score maximum"
-msgstr "最高評価"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Low label"
-msgstr "低いラベル"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "High label"
-msgstr "高いラベル"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Use this draft"
-msgstr "この下書きを使用する"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Add question"
-msgstr "質問を追加"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Avoid leading questions that push a yes/no answer or assume dissatisfaction."
-msgstr ""
-"「はい/いいえ」の答えを誘導したり、不満があると決めつけたりするような誘導的な"
-"質問は避けましょう。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Avoid double-barreled questions that ask for two judgments in one sentence."
-msgstr "1つの文の中で2つの判断を求める、いわゆる「二重の質問」は避けましょう。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Evaluation request failed."
-msgstr "評価リクエストが失敗しました。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Questions"
-msgstr "質問"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Draft"
-msgstr "下書き"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Design guidelines"
-msgstr "設計ガイドライン"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Internal name"
-msgstr "内部名"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Not shown to respondents. Used on webinar provider admin lists when the "
-"survey is attached."
-msgstr ""
-"回答者には表示されません。アンケートが添付されている場合、ウェビナープロバイ"
-"ダーの管理リストで使用されます。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Evaluating…"
-msgstr "評価中…"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Refresh advice"
-msgstr "アドバイスを更新"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Each draft request calls the connector once. Nothing is saved until you "
-"update the event."
-msgstr ""
-"各下書きリクエストでは、コネクタが1回呼び出されます。イベントを更新するまで"
-"は、何も保存されません。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Suggest question drafts"
-msgstr "質問の下書きを提案する"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Question limit reached; survey drafts are hidden."
-msgstr "質問数の上限に達しました; アンケートの下書きは非表示になっています。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Add this question"
-msgstr "この質問を追加"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Per-question prompt and choice drafts are on the Questions tab."
-msgstr "各質問ごとの設問と選択肢の下書きは、「質問」タブにあります。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Draft suggestions require an AI connector. Configure one under Settings → "
-"Connectors."
-msgstr ""
-"下書きの提案には AI コネクタが必要です。「設定 → コネクタ」で設定してくださ"
-"い。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Open settings"
-msgstr "設定を開く"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"Update saves the event and survey now (evaluation runs on the server). You "
-"can save first and check Advice later, or Close to keep editing without "
-"saving."
-msgstr ""
-"「更新」をクリックすると、イベントとアンケートが保存されます (評価処理はサー"
-"バー上で実行)。まず保存してから後で「アドバイス」を確認することも、保存せずに"
-"「閉じる」をクリックして、編集を続けることもできます。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Close"
-msgstr "閉じる"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Update"
-msgstr "更新"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Saved: ready"
-msgstr "保存しました: 準備完了"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Saved: draft"
-msgstr "保存しました: 下書き"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Not saved yet"
-msgstr "まだ保存されていません"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid ""
-"You have unsaved survey changes. Until you update the event, S2J Webinar "
-"keeps the last saved ready survey."
-msgstr ""
-"未保存のアンケート変更があります。イベントを更新するまで、S2J Webinar は、最"
-"後に保存された「準備完了」状態のアンケートを保持します。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "You have unsaved survey changes. Update the event to save."
-msgstr "未保存のアンケート変更があります。イベントを更新して保存しましょう。"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Open…"
-msgstr "開く…"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "Loading survey settings…"
-msgstr "アンケート設定を読み込んでいます…"
-
-#: dist/js/s2j-webinar-survey-gutenberg.js:1
-msgid "PluginDocumentSettingPanel is unavailable in this WordPress version."
-msgstr ""
-"この WordPress のバージョンでは、PluginDocumentSettingPanel は利用できませ"
-"ん。"
+msgstr "S2J Webinar Survey: プラグインディレクトリで「composer install」を実行してください。"
 
 #~ msgid "Not shown to respondents."
 #~ msgstr "回答者には表示されません。"
