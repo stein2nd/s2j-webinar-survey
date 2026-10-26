@@ -2,6 +2,17 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-27
+
+### Added
+
+* Gutenberg 向け i18n 補助 — [`tools/i18n/fill-empty-msgstr.php`](./tools/i18n/fill-empty-msgstr.php) と [`maps/survey-ja-gutenberg.php`](./tools/i18n/maps/survey-ja-gutenberg.php) (空 `msgstr` を map から埋める。Webinar 依存 Notice 文言含む)。
+* npm `makejson:keep` — `wp i18n make-json --no-purge` (Jed JSON をパージしない)。
+
+### Chore
+
+* `languages/` — POT 再生成、JA PO / Jed JSON 同期 (obsolete エントリ整理)。
+
 ## 0.0.1 - 2026-10-26
 
 ### Added

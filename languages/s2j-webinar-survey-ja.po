@@ -117,6 +117,3 @@ msgstr "評価が失敗しました。"
 #: s2j-webinar-survey.php:41
 msgid "S2J Webinar Survey: run composer install in the plugin directory."
 msgstr "S2J Webinar Survey: プラグインディレクトリで「composer install」を実行してください。"
-
-#~ msgid "Not shown to respondents."
-#~ msgstr "回答者には表示されません。"
