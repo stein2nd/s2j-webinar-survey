@@ -29,7 +29,7 @@
 
 段階1–2では **draft REST・コネクタ実呼び出しは省略可**。表示専用 `evaluate` とメタ REST は Local / Studio で検証します。
 
-**Gutenberg 翻訳 (段階1):** `npm run build:production` → `npm run makei18n` (または PO 更新後 `makejson`) → イベント編集画面でスーパーリロード。JSON ファイル名の `{md5}` は `dist/js/s2j-webinar-survey-gutenberg.js` の **相対パス** (`dist/js/…`) のハッシュである (ファイル内容の MD5 ではない)。
+**Gutenberg 翻訳 (段階1):** `npm run build:production` → `makepot` → `wp i18n update-po …` → **Gutenberg 向け `msgstr` を埋める** → `npm run makei18n` (または `makejson`) → イベント編集画面でスーパーリロード。**空 `msgstr` は JED に載らず UI は英語のまま**。JSON ファイル名の `{md5}` は `dist/js/s2j-webinar-survey-gutenberg.js` の **相対パス** (`dist/js/…`) のハッシュである (ファイル内容の MD5 ではない)。
 
 **S2J Webinar Survey Service:** 計算規則・Packagist `s2j/webinar-survey-service` は本件 (Gutenberg ビルド / i18n) で変更なし。プラグイン側は REST → `ServiceBridge` 経由の既存契約のまま。
 
@@ -40,10 +40,11 @@
 | # | 確認項目 | 期待 |
 | --- | --- | --- |
 | 1 | `composer install` + `npm run build:production` | `vendor/` と `dist/js/s2j-webinar-survey-gutenberg.js` |
-| 2 | GatherPress + alpha 有効化 | エラーなく有効 |
+| 2 | **S2J Webinar** 有効化 | Document Settings に設問 UI (Open…) が出る。無効 / 未インストール時は Notice のみ ([admin_ui_spec §S2J Webinar 前提](./admin_ui_spec.md#s2j-webinar-前提-初版)) |
+| 2b | GatherPress + alpha 有効化 | エラーなく有効 |
 | 3 | 本プラグイン有効化 | `s2j/webinar-survey-service` 同梱 |
 | 4 | **設定 > S2J Webinar Survey Questions** | 設問上限 1–15 を保存 |
-| 5 | イベント編集 (ブロック) | Document Settings — バッジ + **Open…** → Modal (CRUD / Advice / Draft)。プラグインエラーバナーなし |
+| 5 | イベント編集 (ブロック) | **S2J Webinar 有効** — Document Settings: バッジ + **Open…** → Modal (CRUD / Advice / Draft)。プラグインエラーバナーなし |
 | 5b | エディター i18n (`ja`) | `wp_set_script_translations` 後、ハードリロードで UI 文言が日本語 (Modal 含む) |
 | 6 | Modal **Update** | 保存後バッジ・未保存警告が追随 (メタ再取得) |
 | 7 | REST `POST …/v1/evaluate` | 200 + deficiencies / advice コード列 |

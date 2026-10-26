@@ -13,6 +13,8 @@
 
 計算 (検査・助言コード・下書きの依頼文と分解) は [S2J Webinar Survey Service](https://github.com/stein2nd/s2j-webinar-survey-service) です。Zoom への添付は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) です。
 
+**導入:** 運用上は **S2J Webinar を先に有効化** し、GatherPress 上で本プラグインを使います (手順は [README.md §Installation](../README.md#installation))。Webinar が無効のとき、イベント編集の Document Settings には案内 Notice のみ表示し、設問 Modal は出しません ([admin_ui_spec.md §S2J Webinar 前提](./admin_ui_spec.md#s2j-webinar-前提-初版))。
+
 ## 基本情報
 
 | 項目 | 値 |
@@ -27,7 +29,7 @@
 
 ## 提供機能
 
-* Document Settings の **S2J Webinar Survey** — 状態バッジ + **Open…** → Modal (Questions / Advice / Draft) で設問編集
+* Document Settings の **S2J Webinar Survey** — (S2J Webinar 有効時) 状態バッジ + **Open…** → Modal (Questions / Advice / Draft)。Webinar 未整備時は Notice のみ
 * モーダル **Update** または画面上部の投稿 **Update** でイベントとアンケートメタを保存 (`save_post` でサーバー `evaluate`)
 * イベント編集からの明示の投稿「更新」で `evaluate` し、成功時は常にメタ文書を上書き (失敗時は書かない)。成功後はパネル文書をメタ文書に同期。除外と許可は [persistence_spec.md](./persistence_spec.md)。再表示は表示専用 (開く／再読込・採用直後。上限は開き直しで反映。搬送は PHP 経由)。正本は [admin_ui_spec.md](./admin_ui_spec.md) / [persistence_spec.md](./persistence_spec.md)
 * サイト設定による設問総数の上限 (1〜15、未設定時は6)

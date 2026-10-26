@@ -34,7 +34,14 @@
 | Update 後 | `save_post` 正規化後のメタを REST で再取得しパネル文書を同期 |
 | 保存 | モーダルフッターの **Update** = エディターと同じ投稿保存 (アンケート専用保存はない)。**Close** = 保存せず閉じる |
 | パネル文書 | Gutenberg `useEntityProp` で `_s2j_webinar_survey`。編集はメタ経由でイベント保存に同梱 |
-| localize (`s2jWebinarSurvey`) | `restNamespace`、`metaKey`、`maxQuestions`、`hasDraftConnector` (`function_exists('wp_ai_client_prompt')`)、`connectorsSettingsUrl` (`options-connectors.php`) |
+| localize (`s2jWebinarSurvey`) | `restNamespace`、`metaKey`、`maxQuestions`、`hasDraftConnector` (`function_exists('wp_ai_client_prompt')`)、`connectorsSettingsUrl` (`options-connectors.php`)、`s2jWebinarInstalled` / `s2jWebinarActive`、`webinarInstallGuideUrl`、`webinarActivateUrl` ([`WebinarDependency.php`](../includes/WebinarDependency.php)) |
+| エディター store | Gutenberg パネルは `core/editor` から `postId` / `postType` を取得 (`postId` / `postType` 確定前はローディング文言のみ) |
+
+### S2J Webinar 前提 (初版)
+
+* **導入順:** [README.md §Installation](../README.md#installation) — **S2J Webinar 有効化** → GatherPress → 本プラグイン。
+* **`s2jWebinarActive` が false:** Document Settings には **Open… / Modal を出さない**。[`WebinarDependencyNotice.tsx`](../src/gutenberg/WebinarDependencyNotice.tsx) のみ (未インストール → インストールガイドリンク、インストール済み無効 → 有効化リンク。権限・状態に応じ URL は空可)。
+* **メタ編集・evaluate** は Webinar 無効でも PHP 側は可能だが、初版 UI は添付先が分かるよう上記ゲートとする (Zoom 添付は Webinar 側 [§外部結合](./status.md#status-external))。
 
 **コネクタと下書きボタン (初版):** `hasDraftConnector` は Connectors API の有無のみ。Draft タブの survey 下書きは false のとき UI を隠し Connectors に誘導する。**Questions** の設問別 prompt/choices 下書きは true のときボタンを出し、テキスト生成コネクタ未設定なら REST エラーを行下に表示する (詳細は [draft_ui_spec.md §コネクタ欠如時](./draft_ui_spec.md#コネクタ欠如時))。
 
@@ -135,6 +142,11 @@
 | `required_open` | 必須の自由記述 (`short` / `long`) がある |
 | `identity_not_last` | 回答者を特定する問いが最後ではない |
 | `purpose_missing` | 企画上の目的が空 |
+
+## Gutenberg i18n (実装)
+
+* `wp_set_script_translations` + `languages/s2j-webinar-survey-ja-{md5}.json` (`dist/js/s2j-webinar-survey-gutenberg.js` 相対パスのハッシュ)。
+* **空 `msgstr` は JED に載らない** — PHP `.mo` だけでは Modal / パネル JS は英語のまま。[wp-plugin-spec §2.3](https://github.com/stein2nd/wp-plugin-spec/blob/main/docs/I18N_AND_A11Y_TEMPLATE.md#23-gutenberg--管理-js-wp_set_script_translations)。手順: `makepot` → `wp i18n update-po` → 訳 (map / `fill-empty-msgstr` 可) → `npm run makei18n`。既存 Jed を残すときは `npm run makejson:keep` (`--no-purge`)。補助: [`tools/i18n/fill-empty-msgstr.php`](../tools/i18n/fill-empty-msgstr.php) + [`tools/i18n/maps/survey-ja-gutenberg.php`](../tools/i18n/maps/survey-ja-gutenberg.php) (Webinar 依存 Notice 文言含む)。
 
 ## 検証
 

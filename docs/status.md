@@ -1,6 +1,6 @@
 # S2J Webinar Survey - 実装状況
 
-最終更新: 2026-10-19
+最終更新: 2026-10-27
 
 索引は [specs.md](./specs.md) です。計算規則の正本は [Survey Service の `docs/`](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs/specs.md) です。
 
@@ -25,7 +25,7 @@
 | 仕様 (`docs/`) | 確定 | — | [§仕様分割](#status-spec-docs) |
 | Composer + Survey Service | 実装済み | 100 | [§Composer](#status-composer) (3/3) |
 | サイト設定 (設問上限) | 実装済み | 100 | [§設定](#status-settings) (3/3) |
-| イベントパネル (設問 CRUD) | 実装済み | 100 | [§管理 UI](#status-admin-ui) (8/8) |
+| イベントパネル (設問 CRUD) | 実装済み | 100 | [§管理 UI](#status-admin-ui) (13/13) |
 | 評価 + メタ文書 (`evaluate`) | 実装済み | 100 | [§永続化](#status-persistence) (6/6) |
 | 下書き + コネクタ (`draft`) | 実装済み | 100 | [§下書き UI](#status-draft) (4/4) |
 | S2J Webinar `ready` 読取 | 相手側 | — | Webinar [§Survey 引き渡し](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-survey) |
@@ -60,7 +60,8 @@
 
 #### プラグイン実装
 
-* [x] Document Settings — 状態バッジ + **Open…** + **Modal** (Questions / Advice / Draft)
+* [x] **S2J Webinar 前提** — 未有効時は [`WebinarDependencyNotice`](../src/gutenberg/WebinarDependencyNotice.tsx) のみ (Open… / Modal 非表示)。[`WebinarDependency.php`](../includes/WebinarDependency.php) + localize
+* [x] Document Settings — 状態バッジ + **Open…** + **Modal** (Questions / Advice / Draft) (Webinar 有効時)
 * [x] 設問 CRUD: 5種、選択肢、レーティング境界、並べ替え
 * [x] 大事な指針 — Questions タブ内 (i18n 英文 msgid)
 * [x] 不足・助言 — Advice タブ、コード→ i18n (`evaluationMessages`)。未登録コードはフォールバック
@@ -69,7 +70,7 @@
 * [x] Gutenberg — `useEntityProp` + 投稿 **Update** 後メタ再取得でパネル同期・未保存警告
 * [x] Gutenberg — `postId` / `postType` 確定後のみ `useEntityProp` (初回描画のガード)
 * [x] Gutenberg ビルド — Vite IIFE で JSX を `wp.element` に委譲 (`S2JWebinarSurveyJSXRuntime`)。`@wordpress/components` との React 二重化を回避
-* [x] エディター i18n — `wp_set_script_translations` + `languages/*-{md5}.json` (`npm run build:production` → `makejson`)
+* [x] エディター i18n — `wp_set_script_translations` + `languages/*-{md5}.json` (`npm run build:production` → `makejson`)。**訳済み `msgstr` のみ JED 化** — `wp i18n update-po` + Gutenberg 訳 + [`tools/i18n/maps/survey-ja-gutenberg.php`](../tools/i18n/maps/survey-ja-gutenberg.php) / [`fill-empty-msgstr.php`](../tools/i18n/fill-empty-msgstr.php)
 * [x] モーダル **Update** — `core/editor` `savePost` (画面上部 Update と同等)
 * [x] 初版 — 公開フロントアンケート画面 **なし** ([overview](./overview.md) 非目標)
 

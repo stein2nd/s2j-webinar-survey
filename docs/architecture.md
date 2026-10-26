@@ -46,10 +46,12 @@ s2j-webinar-survey/
 ├── uninstall.php
 ├── docs/                      # 確定仕様 (governance / archive 含む)
 ├── docs_mod/                  # 改訂案と進行中イニシアチブ証跡
-├── includes/                  # PHP (Settings、Meta、REST evaluate/draft、AiTextGeneration)
+├── includes/                  # PHP (Settings、Meta、REST evaluate/draft、AiTextGeneration、WebinarDependency)
 ├── src/
 │   ├── domain/                # document、question、evaluationMessages
-│   └── gutenberg/             # Document Settings、Modal、CRUD、meta sync
+│   └── gutenberg/             # Document Settings、WebinarDependencyNotice、Modal、CRUD、meta sync
+├── tools/
+│   └── i18n/                  # fill-empty-msgstr、maps/survey-ja-gutenberg.php
 ├── tests/
 │   ├── Unit/                  # 段階3a (WP 不要)
 │   ├── Integration/           # 段階3b (MySQL + WP テスト lib)

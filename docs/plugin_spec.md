@@ -119,6 +119,7 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 * 設問総数の上限はサイト設定 `s2j_webinar_survey_max_questions` (1〜15、未設定時6)。Service には必ず `int`。イベント編集には出さない。
 * Zoom には送らない。添付は相手がメタを直読して通常「同期」で `attach_survey` (create 必須にしない。本プラグイン bridge は初版なし)。写像・見出し/説明のデフォルト値は S2J Webinar / webinar-service の後続である。
 * アンインストールで当該メタとサイト設定を消し、Zoom のアンケートは変更しない。
+* **S2J Webinar 前提 (初版 UI):** 導入は Webinar → GatherPress → 本プラグイン ([README.md](../README.md#installation))。Webinar 未有効時は Gutenberg で設問 Modal を出さず案内 Notice のみ ([admin_ui_spec.md](./admin_ui_spec.md))。
 
 ## 改訂履歴
 
@@ -147,3 +148,5 @@ Composer で `s2j/webinar-survey-service` を require します。参照は [S2J
 | 2026-10-17 | 実装同期: Open… + Modal (CRUD / Advice i18n / Draft)、`POST …/draft`、保存後メタ再取得、Modal Update = savePost。正本は admin / draft / persistence / [status.md](./status.md)、と記録 |
 | 2026-10-19 | Local 検証一式: wp-env 非採用、3b = `test:unit:php:local` (integration **9**)。下書き filter `s2j_webinar_survey_draft_ai_text`、smoke で Service + REST。Draft/Questions のコネクタ UI 差 ([draft_ui_spec.md](./draft_ui_spec.md))。正本は [architecture.md §検証](./architecture.md#検証-段階1-3) / [test-results.md](./test-results.md)、と記録 |
 | 2026-10-24 | 実行要件 PHP **v8.3以上** (WordPress 必須要件)。CI / Composer / Studio Blueprint を v8.3 に揃え、と記録 |
+| 2026-10-26 | S2J Webinar 依存 UI (`WebinarDependency`、Document Settings ゲート、localize)。Gutenberg TS / PHPStan 整備、と記録 |
+| 2026-10-27 | Gutenberg JA 補助 — `tools/i18n/`、`makejson:keep`。正本は [admin_ui_spec §Gutenberg i18n](./admin_ui_spec.md#gutenberg-i18n-実装)、と記録 |
