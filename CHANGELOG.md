@@ -2,6 +2,16 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-30
+
+### Docs
+
+* S2J Webinar 依存 UI を仕様に同期 — [`admin_ui_spec.md`](./docs/admin_ui_spec.md) (localize、Notice ゲート、i18n 手順)、[`overview.md`](./docs/overview.md)、[`plugin_spec.md`](./docs/plugin_spec.md)、[`architecture.md`](./docs/architecture.md)、[`status.md`](./docs/status.md) (管理 UI **13/13**)、[`test-results.md`](./docs/test-results.md) 段階1。
+
+### Chore
+
+* npm 開発依存のパッチ更新 (`@s2j/docs-linter` ^1.0.31、Rollup ^4.66.0等)。`package-lock.json` / `composer.lock` 再生成。
+
 ## 0.0.1 - 2026-10-27
 
 ### Added
