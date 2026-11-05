@@ -62,7 +62,7 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 5. 不足・助言をパネル用の適切なメッセージ文にする (i18n 経由。永続化しない。多重度は Service の戻りどおり。重複除去しない)。
 6. パネル文書をメタ文書に同期する (上記ステップ4成功時)。
 
-**エディター (Gutenberg) クライアント:** 明示の投稿保存が完了したら、コア REST `GET /wp/v2/{post_type}/{id}?context=edit&_fields=meta` で `_s2j_webinar_survey` を再取得し、`useEntityProp` を正規化後のメタ文書で上書きする ( `save_post` がメタを書き換えた後の値が正本)。未保存の編集はフィンガープリント比較で Document Settings に警告する。詳細は [admin_ui_spec.md](./admin_ui_spec.md)。
+**エディター (Gutenberg) クライアント:** 明示の投稿保存が完了したら、コア REST `GET /wp/v2/{post_type}/{id}?context=edit&_fields=meta` で `_s2j_webinar_survey` を再取得し、`useEntityProp` を正規化後のメタ文書でオーバーライトする ( `save_post` がメタを書き換えた後の値が正本)。未保存の編集はフィンガープリント比較で Document Settings に警告する。詳細は [admin_ui_spec.md](./admin_ui_spec.md)。
 
 #### 表示専用 `evaluate` (メタ非書き戻し)
 
@@ -84,7 +84,7 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 2. 不足・助言のメッセージだけ更新する。コード列の多重度は Service の戻りどおり (同じコードが複数回なら同じ msgid を複数回出す。重複除去しない)。
 3. メタ文書は書き戻さない。メタの `status` は前回保存のままとし、次の明示の投稿保存で追随する。
 4. パネルで「状態」と出す場合は、メタ文書の保存済み `status` (`draft` / `ready` のコード) のみとする。**仮の `status` フィールドは持たない。** 不足の有無は `deficiencies` からメッセージにする。メタの「状態」と同じ見た目の第二バッジは出さない。
-5. メタ未作成 (初回未保存) の場合は「保存済み: draft / ready」を出さない (出すなら製品文案で「未保存」)。日本語で状態を「下書き」と呼ばない (下書きは下書き候補／DraftKind)。S2J Webinar はメタ文書の `ready` だけを読むため、未保存は添付対象なしと整合する。
+5. メタ未作成 (初回未保存) の場合は「保存済み: draft / ready」を出さない (出すなら製品文案で「未保存」)。日本語で状態を「下書き」と呼ばない (draft は draft 候補/DraftKind)。S2J Webinar はメタ文書の `ready` だけを読むため、未保存は添付対象なしと整合する。
 6. 二層表示 (未保存の変更と保存済み状態) は、**直前の `deficiencies` / `advice` (メッセージ) とメタ文書の `status` の対比**で足りる。初版 REST に `status` を足さない。
 
 下書き候補の採用はパネル文書に足すだけである。メタ文書への書き込みは、次の明示の投稿保存で行う。
@@ -97,7 +97,7 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 | --- | --- |
 | パス | `POST /wp-json/s2j-webinar-survey/v1/evaluate` |
 | 権限 | `current_user_can( 'edit_post', $event_id )` 相当 (対象イベントを編集できること) |
-| 入力 | **`event_id` (投稿 ID) 必須**、パネル文書。`max_questions` はサーバーがサイト option から読む (`int` 化。クライアント任意上書きは初版しない) |
+| 入力 | **`event_id` (投稿 ID) 必須**、パネル文書。`max_questions` はサーバーがサイト option から読む (`int` 化。クライアント任意オーバーライトは初版しない) |
 | 出力 | **初版はコード列のみ:** `deficiencies`、`advice`。`status` / `document` は足さない。正規化プレビューは後続。**メタは書かない** |
 | 失敗 | 権限不足・不正入力は適切な HTTP ステータスとメッセージ。Service の `InvalidArgumentException` はログし、ユーザー向けは簡潔な失敗メッセージ |
 
@@ -120,12 +120,12 @@ REST で受け付ける形は、サービス文書と同型のパネル文書 (`
 * S2J Webinar は、通常の「同期」で **投稿メタを直接読み** `attach_survey` する (create の必須条件にしない。後から `ready` になっても同じ入口)。**本プラグイン向けの公開 PHP / REST bridge は初版に置かない。** 正本は相手の [survey_handoff_spec.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/survey_handoff_spec.md)。
 * `draft` は読まない。
 * S2J Webinar が無効でも、本プラグインの編集と保存はできる。
-* 添付 HTTP と Zoom 設問型への写像は S2J Webinar / webinar-service が持つ。
+* 添付 HTTP と Zoom 設問型へのマッピングは S2J Webinar / webinar-service が持つ。
 * 本プラグインは Zoom の型名を持たない・送らない。
 * アンケートの見出し・説明など Zoom 添付時のデフォルト値は、相手側 (S2J Webinar / webinar-service) の仕様である。本プラグインは保持・送信しない。
 * 内部名 (`internal_name`) は文書の一部としてメタに保存する。Zoom 一覧向けであり、回答者文面には使わない (添付での扱いは相手側)。
 
-下記は、初版で相手側が扱う答え方の目安です (写像の正本は、webinar-service)。
+下記は、初版で相手側が扱う答え方の目安です (マッピングの正本は、webinar-service)。
 
 | 文書 `answer_kind` | Zoom `type` (相手側) |
 | --- | --- |

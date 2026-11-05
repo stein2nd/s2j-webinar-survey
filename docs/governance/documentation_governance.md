@@ -30,7 +30,7 @@ README と `docs/` の説明・命名が、実装とサービス契約からず�
 
 * コード名・キー名は、[data_dictionary.md](../data_dictionary.md) と Survey Service の contracts に従う。
 * 画面の表示文言は、「適切なメッセージ文を表示する」と書き、国際化関数の経由を前提とする (SPECS.md §4.2.1)。
-* Survey Service の `answer_kind` (`single` / `short` 等) と、Zoom の `type` (`short_answer` 等) を混同して書かない。写像は S2J Webinar / webinar-service の仕事である。
+* Survey Service の `answer_kind` (`single` / `short` 等) と、Zoom の `type` (`short_answer` 等) を混同して書かない。マッピングは S2J Webinar / webinar-service の仕事である。
 * 「状態」はメタ文書の `status` (保存済みの `draft` / `ready` コード) のみを指す。日本語で「下書き」と呼ばない。S2J Webinar が読むのもこの `status` である。不足・助言はいまのパネル文書のライブ検査であり、メタの状態と混同しない。
 * メタ文書への `evaluate` 書き込みは、初版では GatherPress イベント編集からの明示の投稿更新に限定する。除外と表示専用の発火・搬送は [persistence_spec.md](../persistence_spec.md) を正本とする。
 * 「パネル文書」「メタ文書」「下書き候補」の呼び分けは [persistence_spec.md](../persistence_spec.md) / [data_dictionary.md](../data_dictionary.md) に従う。

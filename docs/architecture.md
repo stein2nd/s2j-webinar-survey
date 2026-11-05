@@ -27,7 +27,7 @@ flowchart TD
   PHP --> AI["wp_ai_client_prompt"]
   PHP --> M["_s2j_webinar_survey メタ"]
   V["S2J Webinar"] -.->|"ready をメタ直読"| M
-  W["webinar-service"] -.->|"写像と HTTP"| V
+  W["webinar-service"] -.->|"マッピングと HTTP"| V
 ```
 
 S2J Webinar 向けの公開 PHP / REST bridge は初版に置かない。受け渡しは [persistence_spec.md](./persistence_spec.md) である。
@@ -72,7 +72,7 @@ s2j-webinar-survey/
 | 依存ライブラリ | `s2j/webinar-survey-service` |
 | 下書き | `wp_ai_client_prompt()` (コネクタ)。キーは持たない |
 | ドキュメント lint | `@s2j/docs-linter` / `npm run lint:docs` |
-| PHP 自動テスト | PHPUnit 9。wp-env / Docker は **採用しない** (MLDC / S2J Webinar 3b 同型) |
+| PHP 自動テスト | PHPUnit 9。wp-env / Docker は **採用しない** (MLDC / S2J Webinar の3b 同型) |
 
 ## 検証 (段階1–3)
 
@@ -85,7 +85,7 @@ s2j-webinar-survey/
 | **3a** | `npm run test:unit:php:unit-only` | `tests/Unit/` (CI: `.github/workflows/phpunit.yml`、PHP **v8.3**、wp-env なし) |
 | **3b** | `npm run test:unit:php:local` | unit + `tests/Integration/` (MySQL、`.env.tests`) |
 | **lint** | `npm run lint:php` / `npm run lint:docs` | PHPStan + PHPCS、textlint (`docs-lint.yml`) |
-| **一括 (Local)** | `npm run test:quality:local` | 3a → lint:php → 3b |
+| **一括 (Local)** | `npm run test:quality:local` | 3a → `lint:php` →3b |
 
 統合テストの代表: evaluate / draft ルート、option、メタ REST、filter モック draft、Zoom 非接触 uninstall (`uninstall.php`)。
 

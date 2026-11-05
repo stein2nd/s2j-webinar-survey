@@ -77,7 +77,7 @@ flowchart TD
 | --- | --- |
 | 本プラグイン | 画面、保存、表示文、コネクタ、上限のサイト設定 |
 | Survey Service | 検査、助言、依頼文、分解。副作用なし |
-| S2J Webinar / webinar-service | Zoom 添付の写像と HTTP |
+| S2J Webinar / webinar-service | Zoom 添付のマッピングと HTTP |
 
 ## 関連
 

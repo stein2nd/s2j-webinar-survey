@@ -93,4 +93,4 @@
 ## 補足
 
 * 本プラグインはアダプタです。GatherPress フォーク本体は改変しない。
-* Zoom への添付と設問型写像は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) / [s2j-webinar-service](https://github.com/stein2nd/s2j-webinar-service) の仕事である。
+* Zoom への添付と設問型マッピングは [S2J Webinar](https://github.com/stein2nd/s2j-webinar) / [s2j-webinar-service](https://github.com/stein2nd/s2j-webinar-service) の仕事である。

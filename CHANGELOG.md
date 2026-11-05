@@ -2,6 +2,20 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-11-05
+
+### Docs
+
+* Zoom 設問型の用語を「写像」から「マッピング」に統一 (`overview` / `concept` / `principles` / `specs` / `persistence_spec` / `plugin_spec` / `architecture` / governance 等)。textlint 向けの表記調整を含む。
+
+### Fixed
+
+* `lint:scss` — Stylelint v18で削除された `declaration-block-single-line-max-declarations` を、`stylelint-config-standard-scss@17` 経由の v40が参照していたため Unknown rule になっていた。`package.json` の `overrides` で `stylelint-config-standard` ^41.0.0にそろえて解消。
+
+### Chore
+
+* Stylelint ^18.0.0、Vite ^8.3.6、@wordpress/* パッチ、Rollup ^4.67.5等。`package-lock.json` / `composer.lock` 再生成。
+
 ## 0.0.1 - 2026-10-30
 
 ### Docs
@@ -155,7 +169,7 @@
 * 確定前の仕様に、設問総数の上限をサイト設定とした。未設定の初期値は6、受け付ける範囲は1以上15以下、イベント編集には出さない、と記録した。
 * 誘導と二重の問いは初版では自動判定せず、イベント編集パネル冒頭に「大事な指針」を出す、と記録した。
 * 答え方を単一選択・複数選択・短い回答・長い回答・レーティングスケールの5つとし、画像・スキップ・マッチング・ランク・空欄記入は初版のパネルに出さない、と記録した。
-* 初版5種の Zoom `type` を確定し、添付と写像は S2J Webinar の後続、本プラグインは Zoom フィールドを持たない、と記録した。
+* 初版5種の Zoom `type` を確定し、添付とマッピングは S2J Webinar の後続、本プラグインは Zoom フィールドを持たない、と記録した。
 
 ## 0.0.1 - 2026-10-06
 

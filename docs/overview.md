@@ -46,7 +46,7 @@
 
 * 検査・助言規則の本体 (サービス)
 * モデル HTTP、API キー、プロバイダ選択 (WordPress コネクタ)
-* Zoom への作成・更新・削除、設問型写像 (S2J Webinar / webinar-service)
+* Zoom への作成・更新・削除、設問型マッピング (S2J Webinar / webinar-service)
 * 回答・回答率の取り込み、過去設問の台帳
 * 公開ページへのアンケート表示 (回答者画面は Zoom)
 * 誘導・二重問いの自動判定 (初版。周知はパネル冒頭の指針)
@@ -57,4 +57,4 @@
 * 背景: [concept.md](./concept.md)
 * 統合見取り図: [plugin_spec.md](./plugin_spec.md)
 * 索引: [specs.md](./specs.md)
-* 検証: [test-results.md](./test-results.md) (段階1–3。wp-env 非採用、MySQL 統合 3b)
+* 検証: [test-results.md](./test-results.md) (段階1–3。wp-env 非採用、MySQL 統合の3b)

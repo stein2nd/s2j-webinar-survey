@@ -49,7 +49,7 @@ S2J Webinar 向けの公開 PHP / REST bridge は初版に置かない。受け�
 ### 6. Zoom を知らない
 
 * 文書の答え方はサービスと同じ `single` / `multiple` / `short` / `long` / `rating` である。
-* Zoom の `type` 文字列と添付 HTTP は webinar-service の写像である。
+* Zoom の `type` 文字列と添付 HTTP は webinar-service のマッピングである。
 
 ### 7. 表示文言は国際化経由
 
